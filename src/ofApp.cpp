@@ -2,6 +2,13 @@
 
 void ofApp::setup()
 {
+    ofSetFrameRate(60);
+    mFeedbackTunnel.setup(ofGetWidth(), ofGetHeight());
+
+    mTriggers.Setup();
+    mTriggers.GetTickEvent().add(this, &ofApp::OnTick, 0);
+
+    mTriggers.GetNoteOnEvent(2).add(&mPercussionVisuals, &PercussionVisuals::OnDrumNote, 0);
 }
 
 void ofApp::update()
@@ -10,6 +17,16 @@ void ofApp::update()
 
 void ofApp::draw()
 {
+    mFeedbackTunnel.begin();
+
+    if (mShouldDrawTick) {
+        ofDrawCircle(20, 20, 10);
+        mShouldDrawTick = false;
+    }
+
+    mPercussionVisuals.Draw();
+
+    mFeedbackTunnel.end();
 }
 
 void ofApp::exit()
@@ -83,3 +100,9 @@ void ofApp::dragged(ofDragInfo& dragged)
 void ofApp::messageReceived(ofMessage& message)
 {
 }
+
+void ofApp::OnTick(const void *sender, const int &tickCount)
+{
+    mShouldDrawTick = true;
+}
+

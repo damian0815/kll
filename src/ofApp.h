@@ -1,6 +1,9 @@
 #pragma once
 
 #include "ofMain.h"
+#include "MidiTriggers.h"
+#include "FeedbackTunnel.h"
+#include "PercussionVisuals.h"
 
 class ofApp : public ofBaseApp
 {
@@ -30,4 +33,14 @@ class ofApp : public ofBaseApp
     void windowResized   (ofResizeEventArgs&);
     void dragged         (ofDragInfo&);
     void messageReceived (ofMessage&);
+
+    void OnTick(const void *sender, const int &tickCount);
+
+
+    MidiTriggers mTriggers;
+    FeedbackTunnel mFeedbackTunnel;
+    PercussionVisuals mPercussionVisuals;
+    bool mShouldDrawTick = false;
+
+
 };
