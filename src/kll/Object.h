@@ -5,8 +5,9 @@
 #ifndef OFAPP_OBJECT_H
 #define OFAPP_OBJECT_H
 
+#include <glm/gtc/quaternion.hpp>
 #include "kll.h"
-#include "../../../../../../../usr/local/include/glm/vec3.hpp"
+using glm::quat;
 
 namespace kll {
 
@@ -27,6 +28,8 @@ namespace kll {
         const vec3& GetVelocity() const { return mVelocity; }
         void SetVelocity(const vec3 &velocity) { mVelocity = velocity; }
 
+        void SetOrientation(const quat &q) { mOrientation = q; }
+        const quat &GetOrientation() const { return mOrientation; }
 
     protected:
         virtual void DrawImpl() = 0;
@@ -37,6 +40,7 @@ namespace kll {
 
         vec3 mPosition;
         vec3 mVelocity;
+        quat mOrientation;
         vec3 mScale;
     };
 

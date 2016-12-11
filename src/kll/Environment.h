@@ -19,8 +19,8 @@ namespace kll
     class Environment
     {
     public:
-        void AddObject(shared_ptr<Object> o);
-        void AttachBehaviour(Object* target, shared_ptr<Behaviour> behaviour);
+        void AddObject(Object *o);
+        void AttachBehaviour(Object *target, Behaviour *behaviour);
 
         void Draw();
         void Update(float dt);
@@ -29,8 +29,8 @@ namespace kll
 
     private:
 
-        vector<shared_ptr<Object>> mObjects;
-        map<Object*, vector<shared_ptr<Behaviour>>> mBehaviours;
+        vector<Object*> mObjects;
+        map<Object*, vector<Behaviour*>> mBehaviours;
 
     };
 

@@ -4,7 +4,7 @@
 
 #include <cmath>
 #include "ImplodeBehaviour.h"
-#include "Object.h"
+#include "../Object.h"
 
 kll::ImplodeBehaviour::ImplodeBehaviour(Object *target, vec3 scaleAffect)
         : Behaviour(target), mScaleAffect(scaleAffect)

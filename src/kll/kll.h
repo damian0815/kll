@@ -18,5 +18,9 @@ namespace glm
     std::ostream &operator<<(std::ostream &o, const vec3 &v);
 }
 
+namespace kll
+{
+    float Random(float low=0, float high=1);
+}
 
 #endif //OFAPP_KLL_H_H

@@ -28,6 +28,7 @@ namespace kll
         bool mDrawSnare = false;
         bool mDrawKick = false;
         bool mDrawHat = false;
+
     };
 
 }

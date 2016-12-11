@@ -5,19 +5,21 @@
 #ifndef OFAPP_FALLBEHAVIOUR_H
 #define OFAPP_FALLBEHAVIOUR_H
 
+#include "../kll.h"
 #include "Behaviour.h"
 
 namespace kll {
     class FallBehaviour: public Behaviour
     {
     public:
-        FallBehaviour(Object *target);
+        FallBehaviour(Object *target, vec3 gravity);
 
     public:
         void Update(float dt) override;
 
     private:
 
+        vec3 mGravity;
     };
 }
 

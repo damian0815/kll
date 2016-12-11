@@ -4,8 +4,9 @@
 
 #include <fmt/format.h>
 #include "PercussionVisuals.h"
-#include "ImplodeBehaviour.h"
-#include "FallBehaviour.h"
+#include "Behaviours/ImplodeBehaviour.h"
+#include "Behaviours/FallBehaviour.h"
+#include "Behaviours/AddRotationBehaviour.h"
 #include "Environment.h"
 
 using glm::vec3;
@@ -21,16 +22,6 @@ namespace kll
             ofDrawRectangle(ofGetWidth() / 2, ofGetHeight() / 2, 1500, 150);
             mDrawSnare = false;
         }
-        if (mDrawKick) {
-            ofSetColor(ofColor::white, 255);
-            ofDrawRectangle(ofGetWidth() / 2, ofGetHeight() - 200, 400, 100);
-            mDrawKick = false;
-        }
-        if (mDrawHat) {
-            ofSetColor(ofColor::lightSlateGray);
-            ofDrawRectangle(ofGetWidth() / 2, 200, 100, 5);
-            mDrawHat = false;
-        }
 
     }
 
@@ -39,15 +30,24 @@ namespace kll
         if (noteData.pitch == 64) {
             mDrawSnare = true;
         } else if (noteData.pitch == 60) {
-            auto block = mEnvironment->AddBlock(vec3(0, 0.4f, 0), vec3(1, 0.02, 0.02));
-            mEnvironment->AttachBehaviour(block, std::make_shared<ImplodeBehaviour>(block, vec3(1,0,0)));
-            mEnvironment->AttachBehaviour(block, std::make_shared<FallBehaviour>(block));
-            mDrawKick = true;
+            // kick
+            auto block = mEnvironment->AddBlock(vec3(0, 0.5f, 0), vec3(1.0, 0.03, 0.03));
+            mEnvironment->AttachBehaviour(block, new ImplodeBehaviour(block, vec3(1,0,0)));
+            mEnvironment->AttachBehaviour(block, new FallBehaviour(block, vec3(0, 3, 0)));
+            mEnvironment->AttachBehaviour(block, new AddRotationBehaviour(block, vec3(0, 3, 0)));
+
         } else if (noteData.pitch == 71) {
-            mDrawHat = true;
+            // hihat
+            vec3 center(Random(-1,1), -0.3, Random(-0.3, 0.3));
+            auto block = mEnvironment->AddBlock(center, vec3(0.1, 0.01, 0.01));
+
+            const vec3 screenCenter(0,0,0);
+            auto towardsCenter = glm::normalize(screenCenter - center);
+            mEnvironment->AttachBehaviour(block, new FallBehaviour(block, -towardsCenter*4.0f));
         } else {
             fmt::print("got unhandled drum note {0} {1}\n", noteData.pitch, noteData.velocity);
 
         }
     }
+
 }
