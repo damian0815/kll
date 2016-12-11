@@ -23,12 +23,19 @@ void FeedbackTunnel::begin()
     GetCurrentFbo()->begin();
     ofBackground(0, 255);
 
-    //float scale = 1.02f;
+    mRotation += (mTargetRotation - mRotation)*0.02f;
+
+    //float scale = 1.01f;
     float scale = 1;
     ofSetRectMode(OF_RECTMODE_CENTER);
-    ofSetColor(240);
+    ofSetColor(250, 255);
+    ofPushMatrix();
+    ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
+    //ofRotate(mRotation);
+    ofTranslate(-ofGetWidth()/2, -ofGetHeight()/2);
     GetOtherFbo()->draw(GetCurrentFbo()->getWidth()/2, GetCurrentFbo()->getHeight()/2,
                         GetOtherFbo()->getWidth()*scale, GetOtherFbo()->getHeight()*scale);
+    ofPopMatrix();
 
 }
 

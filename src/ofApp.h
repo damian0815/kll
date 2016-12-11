@@ -3,11 +3,14 @@
 #include "ofMain.h"
 #include "MidiTriggers.h"
 #include "FeedbackTunnel.h"
-#include "PercussionVisuals.h"
+#include "kll/PercussionVisuals.h"
+#include "kll/Environment.h"
 
 class ofApp : public ofBaseApp
 {
   public:
+    ofApp();
+
     void setup  ();
     void update ();
     void draw   ();
@@ -39,7 +42,10 @@ class ofApp : public ofBaseApp
 
     MidiTriggers mTriggers;
     FeedbackTunnel mFeedbackTunnel;
-    PercussionVisuals mPercussionVisuals;
+
+    kll::Environment mEnvironment;
+    kll::PercussionVisuals mPercussionVisuals;
+
     bool mShouldDrawTick = false;
 
 

@@ -14,10 +14,13 @@ public:
 
     void begin();
     void end();
+    void switchRotationDirection() { mTargetRotation = -mTargetRotation; }
 
 private:
     ofFbo mFboA, mFboB;
-    ofFbo* mCurrentFbo;
+    ofFbo* mCurrentFbo = nullptr;
+    float mRotation = 0;
+    float mTargetRotation = 1;
 
     ofFbo *GetCurrentFbo() { return mCurrentFbo; }
     ofFbo *GetOtherFbo();

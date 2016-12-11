@@ -1,5 +1,10 @@
 #include "ofApp.h"
 
+ofApp::ofApp()
+: ofBaseApp(), mPercussionVisuals(&mEnvironment)
+{
+}
+
 void ofApp::setup()
 {
     ofSetFrameRate(60);
@@ -8,15 +13,20 @@ void ofApp::setup()
     mTriggers.Setup();
     mTriggers.GetTickEvent().add(this, &ofApp::OnTick, 0);
 
-    mTriggers.GetNoteOnEvent(2).add(&mPercussionVisuals, &PercussionVisuals::OnDrumNote, 0);
+    mTriggers.GetNoteOnEvent(2).add(&mPercussionVisuals, &kll::PercussionVisuals::OnDrumNote, 0);
 }
 
 void ofApp::update()
 {
+    float dt = ofGetLastFrameTime();
+    mEnvironment.Update(dt);
 }
 
 void ofApp::draw()
 {
+    ofBackground(0);
+    /*
+    ofSetupScreen();
     mFeedbackTunnel.begin();
 
     if (mShouldDrawTick) {
@@ -26,7 +36,15 @@ void ofApp::draw()
 
     mPercussionVisuals.Draw();
 
-    mFeedbackTunnel.end();
+    mFeedbackTunnel.end();*/
+
+    static float SCREEN_WIDTH = 2;
+    float aspectRatio = (float(ofGetHeight())/ofGetWidth());
+    float screenHeight = SCREEN_WIDTH * aspectRatio;
+    ofSetupScreenPerspective(SCREEN_WIDTH, SCREEN_WIDTH * screenHeight);
+    ofTranslate(SCREEN_WIDTH/2, screenHeight/2);
+    mEnvironment.Draw();
+
 }
 
 void ofApp::exit()
@@ -104,5 +122,8 @@ void ofApp::messageReceived(ofMessage& message)
 void ofApp::OnTick(const void *sender, const int &tickCount)
 {
     mShouldDrawTick = true;
+    if ((tickCount % 8) == 0) {
+        mFeedbackTunnel.switchRotationDirection();
+    }
 }
 
