@@ -8,6 +8,7 @@
 #include "Behaviours/FallBehaviour.h"
 #include "Behaviours/AddRotationBehaviour.h"
 #include "Environment.h"
+#include "Clock.h"
 
 using glm::vec3;
 
@@ -38,7 +39,8 @@ namespace kll
 
         } else if (noteData.pitch == 71) {
             // hihat
-            vec3 center(Random(-1,1), -0.3, Random(-0.3, 0.3));
+            auto phase = Clock::Get()->GetPhase(8);
+            vec3 center(0.5f*cosf(float(phase*M_PI*2)), -0.3, 0.0);
             auto block = mEnvironment->AddBlock(center, vec3(0.1, 0.01, 0.01));
 
             const vec3 screenCenter(0,0,0);

@@ -19,7 +19,7 @@ void MidiTriggers::newMidiMessage(ofxMidiMessage &message)
     if (message.portName == OFSYNC_PORT_NAME) {
         if (message.status == MIDI_NOTE_ON) {
             if (message.channel == 1) {
-                fmt::print("Sync: {0}\n", message.pitch);
+                //fmt::print("Sync: {0}\n", message.pitch);
                 if (message.pitch == 71) {
                     mTickCount = 0;
                     RaiseTimeReset();

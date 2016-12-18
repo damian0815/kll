@@ -1,4 +1,5 @@
 #include "ofApp.h"
+#include "kll/Clock.h"
 
 ofApp::ofApp()
 : ofBaseApp(), mPercussionVisuals(&mEnvironment)
@@ -14,11 +15,14 @@ void ofApp::setup()
     mTriggers.GetTickEvent().add(this, &ofApp::OnTick, 0);
 
     mTriggers.GetNoteOnEvent(2).add(&mPercussionVisuals, &kll::PercussionVisuals::OnDrumNote, 0);
+
+    kll::Clock::Get()->Setup(mTriggers);
 }
 
 void ofApp::update()
 {
     float dt = ofGetLastFrameTime();
+    kll::Clock::Get()->Update(dt);
     mEnvironment.Update(dt);
 }
 
