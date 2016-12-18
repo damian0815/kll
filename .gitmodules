@@ -1,0 +1,3 @@
+[submodule "ofxMidi"]
+	path = ofxMidi
+	url = git://github.com/danomatika/ofxMidi.git
