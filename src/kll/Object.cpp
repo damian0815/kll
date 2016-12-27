@@ -12,9 +12,7 @@ void kll::Object::Draw()
 {
     glPushMatrix();
     glTranslatef(mPosition.x, mPosition.y, mPosition.z);
-
     glRotatef(mOrientation);
-
     glScalef(mScale.x, mScale.y, mScale.z);
     DrawImpl();
     glPopMatrix();

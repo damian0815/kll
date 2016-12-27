@@ -29,6 +29,7 @@ namespace kll
         bool mDrawKick = false;
         bool mDrawHat = false;
 
+        float NormalRandom();
     };
 
 }
