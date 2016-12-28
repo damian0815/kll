@@ -24,8 +24,6 @@ namespace kll
         bool mDrawKick = false;
         bool mDrawHat = false;
 
-        float NormalRandom();
-
         Environment *GetEnvironment() const { return Environment::GetInstance(); };
     };
 

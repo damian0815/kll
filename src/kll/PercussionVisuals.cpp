@@ -36,7 +36,7 @@ namespace kll
             GetEnvironment()->AttachBehaviour(block, new ImplodeBehaviour(block, vec3(1,0,0)));
             GetEnvironment()->AttachBehaviour(block, new FallBehaviour(block, vec3(0, 3, 0)));
             //mEnvironment->AttachBehaviour(block, new AddRotationBehaviour(block, vec3(NormalRandom(), NormalRandom(), 0)));
-            GetEnvironment()->AttachBehaviour(block, new AddRotationBehaviour(block, vec3(0, 3.0f*NormalRandom(), 2.0f*NormalRandom())));
+            GetEnvironment()->AttachBehaviour(block, new AddRotationBehaviour(block, vec3(0, 3.0f*RandomNormal(), 2.0f*RandomNormal())));
 
         } else if (noteData.pitch == 71) {
             // hihat
@@ -51,15 +51,6 @@ namespace kll
             fmt::print("got unhandled drum note {0} {1}\n", noteData.pitch, noteData.velocity);
 
         }
-    }
-
-    float PercussionVisuals::NormalRandom()
-    {
-        float value = 0;
-        for (int i=0; i<12; i++) {
-            value += ofRandomuf();
-        }
-        return (value - 6.0f)/6.0f;
     }
 
 }

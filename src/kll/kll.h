@@ -21,6 +21,7 @@ namespace glm
 namespace kll
 {
     float Random(float low=0, float high=1);
+    float RandomNormal();
 }
 
 #endif //OFAPP_KLL_H_H
