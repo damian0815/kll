@@ -1,52 +1,45 @@
 #pragma once
 
 #include "ofMain.h"
-#include "MidiTriggers.h"
 #include "FeedbackTunnel.h"
-#include "kll/PercussionVisuals.h"
-#include "kll/Environment.h"
+#include "kll/Engine.h"
 
 class ofApp : public ofBaseApp
 {
   public:
-    ofApp();
 
-    void setup  ();
-    void update ();
-    void draw   ();
-    void exit   ();
+    void setup  () override ;
+    void update () override ;
+    void draw   () override ;
+    void exit   () override ;
 
-    void keyPressed      (ofKeyEventArgs&);
-    void keyReleased     (ofKeyEventArgs&);
+    void keyPressed      (ofKeyEventArgs&) override ;
+    void keyReleased     (ofKeyEventArgs&) override ;
 
-    void mouseMoved      (ofMouseEventArgs&);
-    void mouseDragged    (ofMouseEventArgs&);
-    void mousePressed    (ofMouseEventArgs&);
-    void mouseReleased   (ofMouseEventArgs&);
-    void mouseScrolled   (ofMouseEventArgs&);
-    void mouseEntered    (ofMouseEventArgs&);
-    void mouseExited     (ofMouseEventArgs&);
+    void mouseMoved      (ofMouseEventArgs&) override ;
+    void mouseDragged    (ofMouseEventArgs&) override ;
+    void mousePressed    (ofMouseEventArgs&) override ;
+    void mouseReleased   (ofMouseEventArgs&) override ;
+    void mouseScrolled   (ofMouseEventArgs&) override ;
+    void mouseEntered    (ofMouseEventArgs&) override ;
+    void mouseExited     (ofMouseEventArgs&) override ;
 
-    void touchDown       (ofTouchEventArgs&);
-    void touchMoved      (ofTouchEventArgs&);
-    void touchUp         (ofTouchEventArgs&);
-    void touchDoubleTap  (ofTouchEventArgs&);
-    void touchCancelled  (ofTouchEventArgs&);
+    void touchDown       (ofTouchEventArgs&) override ;
+    void touchMoved      (ofTouchEventArgs&) override ;
+    void touchUp         (ofTouchEventArgs&) override ;
+    void touchDoubleTap  (ofTouchEventArgs&) override ;
+    void touchCancelled  (ofTouchEventArgs&) override ;
 
-    void windowResized   (ofResizeEventArgs&);
-    void dragged         (ofDragInfo&);
-    void messageReceived (ofMessage&);
-
-    void OnTick(const void *sender, const int &tickCount);
+    void windowResized   (ofResizeEventArgs&) override ;
+    void dragged         (ofDragInfo&) override ;
+    void messageReceived (ofMessage&) override ;
 
 
-    MidiTriggers mTriggers;
+    kll::Engine mKllEngine;
+
     FeedbackTunnel mFeedbackTunnel;
 
-    kll::Environment mEnvironment;
-    kll::PercussionVisuals mPercussionVisuals;
 
-    bool mShouldDrawTick = false;
 
 
 };

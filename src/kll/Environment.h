@@ -19,6 +19,9 @@ namespace kll
     class Environment
     {
     public:
+        Environment() { assert(mInstance == nullptr); mInstance = this; }
+        static Environment* GetInstance() { return mInstance; }
+
         void AddObject(Object *o);
         void AttachBehaviour(Object *target, Behaviour *behaviour);
 
@@ -27,11 +30,14 @@ namespace kll
 
         Block * AddBlock(vec3 initialPos, vec3 dimensions);
 
+        void PrintHello() { fmt::print("hello!\n"); }
+
     private:
 
         vector<Object*> mObjects;
         map<Object*, vector<Behaviour*>> mBehaviours;
 
+        static Environment *mInstance;
     };
 
 }

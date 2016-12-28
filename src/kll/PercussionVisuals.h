@@ -6,30 +6,27 @@
 #define OFAPP_PERCUSSIONVISUALS_H
 
 
-#include "../MidiTriggers.h"
+#include "MidiTriggers.h"
 #include "Environment.h"
-
 
 namespace kll
 {
     class PercussionVisuals
     {
     public:
-        PercussionVisuals(Environment *environment): mEnvironment(environment) {}
-
         void OnDrumNote(const void *sender, const MidiTriggers::NoteData &noteData);
 
         void Draw();
 
 
     private:
-        Environment *mEnvironment;
-
         bool mDrawSnare = false;
         bool mDrawKick = false;
         bool mDrawHat = false;
 
         float NormalRandom();
+
+        Environment *GetEnvironment() const { return Environment::GetInstance(); };
     };
 
 }

@@ -5,7 +5,7 @@
 #ifndef OFAPP_CLOCK_H
 #define OFAPP_CLOCK_H
 
-#include "../MidiTriggers.h"
+#include "MidiTriggers.h"
 
 namespace kll
 {

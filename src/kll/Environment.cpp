@@ -11,6 +11,8 @@ using std::set;
 
 namespace kll
 {
+    Environment* Environment::mInstance = nullptr;
+
     Block * Environment::AddBlock(vec3 initialPos, vec3 dimensions)
     {
         auto block = new Block(initialPos, dimensions);

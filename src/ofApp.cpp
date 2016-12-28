@@ -1,29 +1,16 @@
 #include "ofApp.h"
-#include "kll/Clock.h"
-
-ofApp::ofApp()
-: ofBaseApp(), mPercussionVisuals(&mEnvironment)
-{
-}
 
 void ofApp::setup()
 {
     ofSetFrameRate(60);
     mFeedbackTunnel.setup(ofGetWidth(), ofGetHeight());
 
-    mTriggers.Setup();
-    mTriggers.GetTickEvent().add(this, &ofApp::OnTick, 0);
-
-    mTriggers.GetNoteOnEvent(2).add(&mPercussionVisuals, &kll::PercussionVisuals::OnDrumNote, 0);
-
-    kll::Clock::Get()->Setup(mTriggers);
+    mKllEngine.Setup();
 }
 
 void ofApp::update()
 {
-    float dt = ofGetLastFrameTime();
-    kll::Clock::Get()->Update(dt);
-    mEnvironment.Update(dt);
+    mKllEngine.Update(ofGetLastFrameTime());
 }
 
 void ofApp::draw()
@@ -42,13 +29,7 @@ void ofApp::draw()
 
     mFeedbackTunnel.end();*/
 
-    static float SCREEN_WIDTH = 2;
-    float aspectRatio = (float(ofGetHeight())/ofGetWidth());
-    float screenHeight = SCREEN_WIDTH * aspectRatio;
-    ofSetupScreenPerspective(SCREEN_WIDTH, SCREEN_WIDTH * screenHeight);
-    ofTranslate(SCREEN_WIDTH/2, screenHeight/2);
-    mEnvironment.Draw();
-
+    mKllEngine.Draw();
 }
 
 void ofApp::exit()
@@ -123,11 +104,4 @@ void ofApp::messageReceived(ofMessage& message)
 {
 }
 
-void ofApp::OnTick(const void *sender, const int &tickCount)
-{
-    mShouldDrawTick = true;
-    if ((tickCount % 8) == 0) {
-        mFeedbackTunnel.switchRotationDirection();
-    }
-}
 
