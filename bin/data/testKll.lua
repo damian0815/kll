@@ -4,6 +4,8 @@ print("hello from inside lua")
 environment = kll.Environment.GetInstance()
 environment:PrintHello()
 
+function setup()
+end
 
 function update()
 end

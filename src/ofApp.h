@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 #include "FeedbackTunnel.h"
-#include "kll/Engine.h"
+#include "kll/Engine/Engine.h"
 
 class ofApp : public ofBaseApp
 {

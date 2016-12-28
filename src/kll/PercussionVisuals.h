@@ -6,8 +6,8 @@
 #define OFAPP_PERCUSSIONVISUALS_H
 
 
-#include "MidiTriggers.h"
-#include "Environment.h"
+#include "Engine/MidiTriggers.h"
+#include "Engine/Environment.h"
 
 namespace kll
 {

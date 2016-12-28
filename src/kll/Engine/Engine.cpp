@@ -5,8 +5,10 @@
 
 
 #include "Engine.h"
-#include "PercussionVisuals.h"
+#include "../PercussionVisuals.h"
 #include "Clock.h"
+
+static const auto SCRIPT_FILE = "testKll.lua";
 
 extern "C" {
     int luaopen_kll(lua_State* l);
@@ -14,11 +16,7 @@ extern "C" {
 
 void kll::Engine::Setup()
 {
-    mLua.init(true);
-    luaopen_kll(mLua);
-
     mLua.addListener(this);
-    mLua.doScript("testKll.lua");
 
     mTriggers.Setup();
     mTriggers.GetNoteOnEvent(2).add(&mPercussionVisuals, &PercussionVisuals::OnDrumNote, 0);
@@ -26,6 +24,8 @@ void kll::Engine::Setup()
     Clock::Get()->Setup(mTriggers);
 
     mLuaMidiSender.Setup(&mLua, &mTriggers);
+
+    ReloadLuaScript();
 }
 
 void kll::Engine::Update(float dt)
@@ -48,5 +48,14 @@ void kll::Engine::Draw()
 void kll::Engine::errorReceived(string &msg)
 {
     fmt::print_colored(fmt::Color::RED, "Lua: {0}\n", msg);
+}
+
+void kll::Engine::ReloadLuaScript()
+{
+    mLua.scriptExit();
+    mLua.init(true);
+    luaopen_kll(mLua);
+    mLua.doScript(SCRIPT_FILE, true);
+	mLua.scriptSetup();
 }
 

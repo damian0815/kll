@@ -8,7 +8,7 @@
 
 #include "ofxLua.h"
 #include "Environment.h"
-#include "PercussionVisuals.h"
+#include "../PercussionVisuals.h"
 #include "MidiTriggers.h"
 #include "LuaMidiSender.h"
 
@@ -31,6 +31,8 @@ namespace kll
         ofxLua mLua;
 
         LuaMidiSender mLuaMidiSender;
+
+        void ReloadLuaScript();
     };
 }
 

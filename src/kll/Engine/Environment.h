@@ -5,9 +5,9 @@
 #ifndef OFAPP_ENVIRONMENT_H
 #define OFAPP_ENVIRONMENT_H
 
-#include "kll.h"
+#include "../kll.h"
 #include <map>
-#include "Block.h"
+#include "../Block.h"
 
 using std::map;
 

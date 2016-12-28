@@ -4,8 +4,8 @@
 
 #include <set>
 #include "Environment.h"
-#include "Object.h"
-#include "Behaviours/Behaviour.h"
+#include "../Object.h"
+#include "../Behaviours/Behaviour.h"
 
 using std::set;
 

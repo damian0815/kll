@@ -7,8 +7,8 @@
 #include "Behaviours/ImplodeBehaviour.h"
 #include "Behaviours/FallBehaviour.h"
 #include "Behaviours/AddRotationBehaviour.h"
-#include "Environment.h"
-#include "Clock.h"
+#include "Engine/Environment.h"
+#include "Engine/Clock.h"
 
 using glm::vec3;
 
