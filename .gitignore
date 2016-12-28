@@ -7,3 +7,9 @@ debug/*
 
 bin/*
 !bin/data/
+
+.idea
+cmake-build-debug
+cmake-build-release
+
+src/swig/Environment_wrap.cxx
