@@ -25,11 +25,15 @@ void kll::Engine::Setup()
 
     mLuaMidiSender.Setup(&mLua, &mTriggers);
 
+    mLuaScriptFileWatcher.GetChangedEvent().add(this, &Engine::OnLuaScriptFileChanged, 0);
+    const bool MAKE_ABSOLUTE = true;
+    mLuaScriptFileWatcher.Setup(ofToDataPath(SCRIPT_FILE, MAKE_ABSOLUTE));
     ReloadLuaScript();
 }
 
 void kll::Engine::Update(float dt)
 {
+    mLuaScriptFileWatcher.Update();
     mLua.scriptUpdate();
     kll::Clock::Get()->Update(dt);
     mEnvironment.Update(dt);
@@ -57,5 +61,11 @@ void kll::Engine::ReloadLuaScript()
     luaopen_kll(mLua);
     mLua.doScript(SCRIPT_FILE, true);
 	mLua.scriptSetup();
+}
+
+void kll::Engine::OnLuaScriptFileChanged(const void *sender, string &fullPath)
+{
+    fmt::print("Reloading lua script because {0} changed\n", fullPath);
+    ReloadLuaScript();
 }
 

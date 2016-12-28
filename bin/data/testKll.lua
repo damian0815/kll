@@ -12,6 +12,6 @@ end
 
 
 function OnMidiNote(channel, pitch, velocity)
-    print(string.format("lua midi note on ch %i: pitch %i, velocity %i", channel, pitch, velocity));
+    print(string.format("lua midi 3 note on ch %i: pitch %i, velocity %i", channel, pitch, velocity));
 end
 
