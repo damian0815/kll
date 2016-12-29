@@ -23,7 +23,7 @@ set(SWIG_DEPENDENCIES ${SWIG_INPUT} ${CMAKE_CURRENT_SOURCE_DIR}/src/kll/Engine/E
 
 add_custom_command(
         OUTPUT ${SWIG_OUTPUT}
-        COMMAND swig -lua -c++ -o ${SWIG_OUTPUT} ${SWIG_INPUT}
+        COMMAND swig -lua -c++ -I/usr/local/include -o ${SWIG_OUTPUT} ${SWIG_INPUT}
         DEPENDS ${SWIG_DEPENDENCIES}
 )
 

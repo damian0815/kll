@@ -13,7 +13,7 @@ namespace kll
 {
     Environment* Environment::mInstance = nullptr;
 
-    Block * Environment::AddBlock(vec3 initialPos, vec3 dimensions)
+    Block * Environment::AddBlock(gvec3 initialPos, gvec3 dimensions)
     {
         auto block = new Block(initialPos, dimensions);
         AddObject(block);
