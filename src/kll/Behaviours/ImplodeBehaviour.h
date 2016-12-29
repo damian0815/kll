@@ -6,6 +6,7 @@
 #define OFAPP_IMPLODEBEHAVIOUR_H
 
 #include "Behaviour.h"
+#include "../Engine/gvec3.h"
 #include <glm/glm.hpp>
 using glm::vec3;
 
@@ -14,7 +15,7 @@ namespace kll {
     class ImplodeBehaviour: public Behaviour
     {
     public:
-        ImplodeBehaviour(Object *target, vec3 scaleAffect);
+        ImplodeBehaviour(Object *target, gvec3 scaleAffect);
 
         void Update(float dt) override;
 

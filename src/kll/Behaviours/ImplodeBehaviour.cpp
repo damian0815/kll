@@ -6,7 +6,7 @@
 #include "ImplodeBehaviour.h"
 #include "../Object.h"
 
-kll::ImplodeBehaviour::ImplodeBehaviour(Object *target, vec3 scaleAffect)
+kll::ImplodeBehaviour::ImplodeBehaviour(Object *target, kll::gvec3 scaleAffect)
         : Behaviour(target), mScaleAffect(scaleAffect)
 {
 

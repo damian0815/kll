@@ -8,6 +8,7 @@
 #include "../kll.h"
 #include <map>
 #include "../Block.h"
+#include "gvec3.h"
 
 using std::map;
 
@@ -15,15 +16,6 @@ namespace kll
 {
     class Object;
     class Behaviour;
-
-    struct gvec3
-    {
-        gvec3() = default;
-        gvec3(float _x, float _y, float _z) : x(_x), y(_y), z(_z) {}
-        gvec3(const vec3& v) : x(v.x), y(v.y), z(v.z) {}
-        operator vec3() const { return vec3(x, y, z); }
-        float x=0, y=0, z=0;
-    };
 
     class Environment
     {
