@@ -20,6 +20,8 @@ namespace kll
 
         ofEvent<string>& GetChangedEvent() { return mChangedEvent; }
 
+        const string &GetFullPath() { return mFullPath; };
+
     private:
         string mFullPath;
         string mLastHash;

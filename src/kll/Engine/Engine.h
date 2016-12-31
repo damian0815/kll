@@ -11,7 +11,7 @@
 #include "../PercussionVisuals.h"
 #include "MidiTriggers.h"
 #include "LuaMidiSender.h"
-#include "FileWatcher.h"
+#include "FolderWatcher.h"
 
 namespace kll
 {
@@ -26,7 +26,7 @@ namespace kll
         void ReloadLuaScript();
 
         void errorReceived(string &msg) override;
-        void OnLuaScriptFileChanged(const void *sender, string &fullPath);
+        void OnLuaScriptFolderChanged(const void *sender, string &fullPath);
 
         MidiTriggers mTriggers;
         Environment mEnvironment;
@@ -35,7 +35,7 @@ namespace kll
 
         LuaMidiSender mLuaMidiSender;
 
-        FileWatcher mLuaScriptFileWatcher;
+        FolderWatcher mLuaScriptFolderWatcher;
 
 
     };

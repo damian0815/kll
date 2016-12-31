@@ -32,8 +32,14 @@ namespace kll
             mDrawSnare = true;
         } else if (noteData.pitch == 60) {
             // kick
+
             auto block = GetEnvironment()->AddBlock(vec3(0, 0.5f, 0), vec3(1.0, 0.03, 0.03));
-            GetEnvironment()->AttachBehaviour(block, new ImplodeBehaviour(block, vec3(1,0,0)));
+
+
+            auto implode = GetEnvironment()->GetBehaviourPool()->GetNewImplodeBehaviour();
+            implode->Setup(block, vec3(1,0,0));
+            GetEnvironment()->AttachBehaviour(block, implode);
+
             GetEnvironment()->AttachBehaviour(block, new FallBehaviour(block, vec3(0, 3, 0)));
             //mEnvironment->AttachBehaviour(block, new AddRotationBehaviour(block, vec3(NormalRandom(), NormalRandom(), 0)));
             GetEnvironment()->AttachBehaviour(block, new AddRotationBehaviour(block, vec3(0, 3.0f*RandomNormal(), 2.0f*RandomNormal())));

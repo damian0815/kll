@@ -9,6 +9,7 @@
 #include <map>
 #include "../Block.h"
 #include "gvec3.h"
+#include "BehaviourPool.h"
 
 using std::map;
 
@@ -24,21 +25,28 @@ namespace kll
         static Environment* GetInstance() { return mInstance; }
 
         void AddObject(Object *o);
+        void RemoveObject(Object *o);
+
         void AttachBehaviour(Object *target, Behaviour *behaviour);
 
         void Draw();
         void Update(float dt);
 
-        Block * AddBlock(gvec3 initialPos, gvec3 dimensions);
+        kll::Block * AddBlock(kll::gvec3 initialPos, kll::gvec3 dimensions);
 
         void PrintHello() { fmt::print("hello!\n"); }
+
+        kll::BehaviourPool* GetBehaviourPool() { return &mBehaviourPool; }
 
     private:
 
         vector<Object*> mObjects;
         map<Object*, vector<Behaviour*>> mBehaviours;
 
+        BehaviourPool mBehaviourPool;
+
         static Environment *mInstance;
+
     };
 
 }

@@ -7,6 +7,7 @@
 #include "Engine.h"
 #include "../PercussionVisuals.h"
 #include "Clock.h"
+#include "LuaHelpers.h"
 
 static const auto SCRIPT_FILE = "testKll.lua";
 
@@ -25,16 +26,20 @@ void kll::Engine::Setup()
 
     mLuaMidiSender.Setup(&mLua, &mTriggers);
 
-    mLuaScriptFileWatcher.GetChangedEvent().add(this, &Engine::OnLuaScriptFileChanged, 0);
+    mLuaScriptFolderWatcher.GetChangedEvent().add(this, &Engine::OnLuaScriptFolderChanged, 0);
     const bool MAKE_ABSOLUTE = true;
-    mLuaScriptFileWatcher.Setup(ofToDataPath(SCRIPT_FILE, MAKE_ABSOLUTE));
+    mLuaScriptFolderWatcher.Setup(ofToDataPath("", MAKE_ABSOLUTE));
     ReloadLuaScript();
 }
 
 void kll::Engine::Update(float dt)
 {
-    mLuaScriptFileWatcher.Update();
-    mLua.scriptUpdate();
+    mLuaScriptFolderWatcher.Update();
+
+    if (mLua.isValid()) {
+        CallLuaFunction(&mLua, "update", dt);
+    }
+
     kll::Clock::Get()->Update(dt);
     mEnvironment.Update(dt);
 }
@@ -63,7 +68,7 @@ void kll::Engine::ReloadLuaScript()
 	mLua.scriptSetup();
 }
 
-void kll::Engine::OnLuaScriptFileChanged(const void *sender, string &fullPath)
+void kll::Engine::OnLuaScriptFolderChanged(const void *sender, string &fullPath)
 {
     fmt::print("Reloading lua script because {0} changed\n", fullPath);
     ReloadLuaScript();

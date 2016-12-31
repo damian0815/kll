@@ -6,13 +6,13 @@
 #include "../Object.h"
 
 kll::FallBehaviour::FallBehaviour(Object *target, vec3 gravity)
-        : Behaviour(target), mGravity(gravity)
+        : mGravity(gravity)
 {
+    mTarget = target;
 
 }
 
 void kll::FallBehaviour::Update(float dt)
 {
     mTarget->SetVelocity(mTarget->GetVelocity() + dt * mGravity);
-
 }

@@ -6,11 +6,10 @@
 #include "ImplodeBehaviour.h"
 #include "../Object.h"
 
-kll::ImplodeBehaviour::ImplodeBehaviour(Object *target, kll::gvec3 scaleAffect)
-        : Behaviour(target), mScaleAffect(scaleAffect)
+void kll::ImplodeBehaviour::Setup(Object *target, kll::gvec3 scaleAffect)
 {
-
-
+    mTarget = target;
+    mScaleAffect = scaleAffect;
 }
 
 void kll::ImplodeBehaviour::Update(float dt)

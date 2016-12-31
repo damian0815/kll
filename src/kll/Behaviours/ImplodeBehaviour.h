@@ -15,7 +15,7 @@ namespace kll {
     class ImplodeBehaviour: public Behaviour
     {
     public:
-        ImplodeBehaviour(Object *target, gvec3 scaleAffect);
+        void Setup(Object *target, kll::gvec3 scaleAffect);
 
         void Update(float dt) override;
 

@@ -14,15 +14,15 @@ namespace kll {
     class Behaviour
     {
     public:
-        Behaviour(Object* target) : mTarget(target) {}
         virtual ~Behaviour() {}
 
         virtual void Update(float dt) = 0;
         virtual bool ShouldObjectBeDestroyed() { return false; }
+        Object* GetTarget() { return mTarget; }
 
     protected:
 
-        Object* mTarget;
+        Object* mTarget = nullptr;
 
     };
 

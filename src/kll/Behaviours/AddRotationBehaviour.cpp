@@ -7,8 +7,9 @@
 #include "../Object.h"
 
 kll::AddRotationBehaviour::AddRotationBehaviour(Object *target, vec3 angularVelocity)
-        : Behaviour(target), mAngularVelocity(angularVelocity)
+        : mAngularVelocity(angularVelocity)
 {
+    mTarget = target;
 
 }
 

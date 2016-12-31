@@ -43,3 +43,4 @@ string kll::FileWatcher::GetHash(const string &fullPath)
     auto hash = get_hash_hex_string(hasher);
     return hash;
 }
+

@@ -11,7 +11,7 @@
 namespace kll
 {
 
-    class Block: public Object
+    class Block: public kll::Object
     {
     public:
         Block(vec3 initialPos, vec3 dimensions);
