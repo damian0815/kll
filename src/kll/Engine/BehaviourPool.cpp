@@ -13,6 +13,7 @@ kll::ImplodeBehaviour *kll::BehaviourPool::GetNewImplodeBehaviour()
 
     auto behaviour = mImplodeBehaviours.back();
     mImplodeBehaviours.erase(mImplodeBehaviours.end()-1);
+    behaviour->Reset();
     return behaviour;
 }
 
@@ -24,7 +25,7 @@ void kll::BehaviourPool::GiveBackBehaviour(kll::Behaviour *pBehaviour)
         return;
     }
 
-    fmt::print("Unknown behaviour - deleting");
+    fmt::print("Unknown behaviour - deleting\n");
     delete pBehaviour;
 
 }

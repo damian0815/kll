@@ -35,6 +35,7 @@ function Behaviours:Update(dt)
     end
 
     for k, behaviourIndex in ipairs(toDestroy) do
+        println("removing behaviour " .. behaviourIndex)
         table.remove(self.mBehaviours, behaviourIndex)
     end
 

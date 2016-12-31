@@ -21,6 +21,8 @@ namespace kll {
 
         bool ShouldObjectBeDestroyed() override;
 
+        void Reset() override ;
+
     private:
 
         float mScale = 1;

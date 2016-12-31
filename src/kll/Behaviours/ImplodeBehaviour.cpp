@@ -30,3 +30,8 @@ bool kll::ImplodeBehaviour::ShouldObjectBeDestroyed()
     return mScale <= MIN_SCALE;
 }
 
+void kll::ImplodeBehaviour::Reset()
+{
+    mScale = 1;
+}
+

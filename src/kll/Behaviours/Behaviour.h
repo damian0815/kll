@@ -24,6 +24,7 @@ namespace kll {
 
         Object* mTarget = nullptr;
 
+        virtual void Reset() = 0;
     };
 
 }

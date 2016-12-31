@@ -17,6 +17,8 @@ namespace kll {
     public:
         void Update(float dt) override;
 
+        void Reset() override {};
+
     private:
 
         vec3 mGravity;

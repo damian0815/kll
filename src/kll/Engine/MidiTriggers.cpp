@@ -17,28 +17,47 @@ namespace kll
 
     }
 
+    void MidiTriggers::Update()
+    {
+        ProcessReceivedMessages();
+    }
+
     void MidiTriggers::newMidiMessage(ofxMidiMessage &message)
     {
-        if (message.portName == OFSYNC_PORT_NAME) {
-            if (message.status == MIDI_NOTE_ON) {
-                if (message.channel == 1) {
-                    //fmt::print("Sync: {0}\n", message.pitch);
-                    if (message.pitch == 71) {
-                        mTickCount = 0;
-                        RaiseTimeReset();
-                    } else if (message.pitch == 72) {
-                        RaiseTick();
-                        ++mTickCount;
+        mReceivedMessagesMutex.lock();
+        mReceivedMessages.push_back(message);
+        mReceivedMessagesMutex.unlock();
+    }
+
+    void MidiTriggers::ProcessReceivedMessages()
+    {
+        mReceivedMessagesMutex.lock();
+
+        for (auto& message: mReceivedMessages) {
+            if (message.portName == OFSYNC_PORT_NAME) {
+                if (message.status == MIDI_NOTE_ON) {
+                    if (message.channel == 1) {
+                        //fmt::print("Sync: {0}\n", message.pitch);
+                        if (message.pitch == 71) {
+                            mTickCount = 0;
+                            RaiseTimeReset();
+                        } else if (message.pitch == 72) {
+                            RaiseTick();
+                            ++mTickCount;
+                        }
+                    } else {
+                        RaiseNoteOn(message);
                     }
+                } else if (message.status == MIDI_NOTE_OFF) {
+                    // do nothing
                 } else {
-                    RaiseNoteOn(message);
+                    fmt::print("Sync: {0}\n", message.toString());
                 }
-            } else if (message.status == MIDI_NOTE_OFF) {
-                // do nothing
-            } else {
-                fmt::print("Sync: {0}\n", message.toString());
             }
         }
+        mReceivedMessages.clear();
+
+        mReceivedMessagesMutex.unlock();
 
     }
 

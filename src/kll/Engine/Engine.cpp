@@ -35,6 +35,7 @@ void kll::Engine::Setup()
 void kll::Engine::Update(float dt)
 {
     mLuaScriptFolderWatcher.Update();
+    mTriggers.Update();
 
     if (mLua.isValid()) {
         CallLuaFunction(&mLua, "update", dt);

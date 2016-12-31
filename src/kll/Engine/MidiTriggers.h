@@ -16,6 +16,7 @@ namespace kll
     {
     public:
         void Setup();
+        void Update();
 
         ofEvent<void> &GetTimeResetEvent()
         { return mTimeResetEvent; }
@@ -35,6 +36,7 @@ namespace kll
 
     private:
         void newMidiMessage(ofxMidiMessage &message) override;
+        void ProcessReceivedMessages();
 
         void RaiseTimeReset()
         { mTimeResetEvent.notify(this); }
@@ -52,6 +54,11 @@ namespace kll
         ofxMidiIn mSyncInput;
 
         ofEvent<const NoteData &> mNoteOnEvents[17];
+
+        ofMutex mReceivedMessagesMutex;
+        vector<ofxMidiMessage> mReceivedMessages;
+
+
     };
 
 }

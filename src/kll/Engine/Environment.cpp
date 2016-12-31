@@ -62,7 +62,7 @@ namespace kll
     {
         auto it = find(mObjects.begin(), mObjects.end(), o);
         assert(it != mObjects.end());
-        //fmt::print("erasing object at index {0}\n", it - mObjects.begin());
+        fmt::print("erasing object at index {0} ({1} remain)\n", it - mObjects.begin(), mObjects.size());
 
         delete *it;
         mObjects.erase(it);
