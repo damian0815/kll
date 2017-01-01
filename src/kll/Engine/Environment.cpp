@@ -63,8 +63,6 @@ namespace kll
         auto it = find(mObjects.begin(), mObjects.end(), o);
         assert(it != mObjects.end());
         fmt::print("erasing object at index {0} ({1} remain)\n", it - mObjects.begin(), mObjects.size());
-
-        delete *it;
         mObjects.erase(it);
 
         auto& behaviours = mBehaviours[o];
@@ -72,6 +70,8 @@ namespace kll
             mBehaviourPool.GiveBackBehaviour(b);
         }
         mBehaviours.erase(o);
+
+        delete o;
     }
 
     void Environment::AttachBehaviour(Object *target, Behaviour *behaviour)

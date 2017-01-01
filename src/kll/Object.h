@@ -7,6 +7,8 @@
 
 #include <glm/gtc/quaternion.hpp>
 #include "kll.h"
+#include "Engine/gvec3.h"
+
 using glm::quat;
 
 namespace kll {
@@ -25,11 +27,12 @@ namespace kll {
         const vec3& GetScale() const { return mScale; }
         void SetScale(vec3 scale) { mScale = scale; }
 
-        const vec3& GetVelocity() const { return mVelocity; }
-        void SetVelocity(const vec3 &velocity) { mVelocity = velocity; }
+        // explict namespace is required for Lua bindings
+        const kll::gvec3 GetVelocity() const { return mVelocity; }
+        void SetVelocity(const kll::gvec3 &velocity) { mVelocity = velocity; }
 
-        void SetOrientation(const quat &q) { mOrientation = q; }
-        const quat &GetOrientation() const { return mOrientation; }
+        const kll::gquat GetOrientation() const { return mOrientation; }
+        void SetOrientation(const kll::gquat &q) { mOrientation = q; }
 
     protected:
         virtual void DrawImpl() = 0;

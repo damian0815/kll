@@ -24,7 +24,9 @@ namespace kll
         Environment() { assert(mInstance == nullptr); mInstance = this; }
         static Environment* GetInstance() { return mInstance; }
 
+        bool HasObject(Object *o) { return std::find(mObjects.begin(), mObjects.end(), o) != mObjects.end(); }
         void AddObject(Object *o);
+
         void RemoveObject(Object *o);
 
         void AttachBehaviour(Object *target, Behaviour *behaviour);

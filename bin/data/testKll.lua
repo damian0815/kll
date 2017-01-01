@@ -5,6 +5,8 @@ environment = kll.Environment.GetInstance()
 environment:PrintHello()
 
 require "Behaviours"
+require "FallBehaviour"
+require "AddRotationBehaviour"
 gBehaviours = Behaviours:new();
 
 function setup()
@@ -21,9 +23,12 @@ function OnMidiNote(channel, pitch, velocity)
     if channel == 2 then
         if pitch == 60 then
             local block = environment:AddBlock(kll.gvec3(0,0.5,0), kll.gvec3(1,0.03,0.03))
-            local implode = environment:GetBehaviourPool():GetNewImplodeBehaviour()
-            implode:Setup(block, kll.gvec3(1,0,0))
-            environment:AttachBehaviour(block, implode)
+
+            local fall = FallBehaviour:new(block, kll.gvec3(0, 3, 0))
+            gBehaviours:AddBehaviour(fall)
+
+            local addRotation = AddRotationBehaviour:new(block, kll.gvec3(0, 3*kll.RandomNormal(), 2*kll.RandomNormal()))
+            gBehaviours:AddBehaviour(addRotation)
         end
     end
 

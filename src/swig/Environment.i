@@ -1,6 +1,7 @@
 
 %module kll
 %{
+    #include "../kll/kll.h"
     #include "../kll/Block.h"
     #include "../kll/Object.h"
     #include "../kll/Engine/Environment.h"
@@ -17,6 +18,7 @@
 %include <std_vector.i>
 %include <std_map.i>
 
+%include "../kll/kll.h"
 %include "../kll/Object.h"
 %include "../kll/Block.h"
 %include "../kll/Engine/Environment.h"

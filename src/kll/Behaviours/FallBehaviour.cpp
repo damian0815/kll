@@ -14,5 +14,5 @@ kll::FallBehaviour::FallBehaviour(Object *target, vec3 gravity)
 
 void kll::FallBehaviour::Update(float dt)
 {
-    mTarget->SetVelocity(mTarget->GetVelocity() + dt * mGravity);
+    mTarget->SetVelocity(vec3(mTarget->GetVelocity()) + dt * mGravity);
 }
