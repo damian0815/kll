@@ -23,12 +23,11 @@ function Behaviours:Update(dt)
     local toDestroy = {}
     for index, behaviour in ipairs(self.mBehaviours) do
 
-        if behaviour:ShouldObjectBeDestroyed() then
-            environment:RemoveObject(behaviour:GetTarget())
-        end
-
         if environment:HasObject(behaviour:GetTarget()) then
             behaviour:Update(dt)
+            if behaviour:ShouldObjectBeDestroyed() then
+                environment:RemoveObject(behaviour:GetTarget())
+            end
         else
             table.insert(toDestroy, index)
         end

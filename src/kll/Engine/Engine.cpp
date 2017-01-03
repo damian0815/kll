@@ -20,7 +20,7 @@ void kll::Engine::Setup()
     mLua.addListener(this);
 
     mTriggers.Setup();
-    mTriggers.GetNoteOnEvent(2).add(&mPercussionVisuals, &PercussionVisuals::OnDrumNote, 0);
+    //mTriggers.GetNoteOnEvent(2).add(&mPercussionVisuals, &PercussionVisuals::OnDrumNote, 0);
 
     Clock::Get()->Setup(mTriggers);
 
@@ -50,7 +50,7 @@ void kll::Engine::Draw()
     static float SCREEN_WIDTH = 2;
     float aspectRatio = (float(ofGetHeight())/ofGetWidth());
     float screenHeight = SCREEN_WIDTH * aspectRatio;
-    ofSetupScreenPerspective(SCREEN_WIDTH, SCREEN_WIDTH * screenHeight);
+    ofSetupScreenPerspective(SCREEN_WIDTH, screenHeight);
     ofTranslate(SCREEN_WIDTH/2, screenHeight/2);
     mEnvironment.Draw();
 }
@@ -63,6 +63,9 @@ void kll::Engine::errorReceived(string &msg)
 void kll::Engine::ReloadLuaScript()
 {
     mLua.scriptExit();
+
+    mEnvironment.Clear();
+
     mLua.init(true);
     luaopen_kll(mLua);
     mLua.doScript(SCRIPT_FILE, true);

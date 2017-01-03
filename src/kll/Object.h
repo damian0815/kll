@@ -34,12 +34,17 @@ namespace kll {
         const kll::gquat GetOrientation() const { return mOrientation; }
         void SetOrientation(const kll::gquat &q) { mOrientation = q; }
 
+        float GetAlpha() const { return mAlpha; }
+        void SetAlpha(float alpha) { mAlpha = alpha; }
+
     protected:
         virtual void DrawImpl() = 0;
         virtual void UpdateImpl(float dt) = 0;
 
 
     private:
+
+        float mAlpha = 1;
 
         vec3 mPosition;
         vec3 mVelocity;

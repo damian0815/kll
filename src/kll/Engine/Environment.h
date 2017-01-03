@@ -40,6 +40,8 @@ namespace kll
 
         kll::BehaviourPool* GetBehaviourPool() { return &mBehaviourPool; }
 
+        void Clear();
+
     private:
 
         vector<Object*> mObjects;

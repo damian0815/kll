@@ -22,6 +22,7 @@ namespace kll
 {
     float Random(float low=0, float high=1);
     float RandomNormal();
+    float RandomNormal(float min, float max);
 }
 
 #endif //OFAPP_KLL_H_H

@@ -79,5 +79,13 @@ namespace kll
         mBehaviours[target].push_back(behaviour);
     }
 
+    void Environment::Clear()
+    {
+        for (int i=mObjects.size()-1; i>=0; i--) {
+            RemoveObject(mObjects[i]);
+        }
+
+    }
+
 
 }

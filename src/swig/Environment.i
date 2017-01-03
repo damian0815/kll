@@ -9,6 +9,7 @@
     #include "../kll/Behaviours/Behaviour.h"
     #include "../kll/Engine/BehaviourPool.h"
     #include "../kll/Engine/gvec3.h"
+    #include "../kll/Engine/Clock.h"
 
     using namespace kll;
 %}
@@ -26,4 +27,5 @@
 %include "../kll/Behaviours/ImplodeBehaviour.h"
 %include "../kll/Engine/BehaviourPool.h"
 %include "../kll/Engine/gvec3.h"
+%include "../kll/Engine/Clock.h"
 

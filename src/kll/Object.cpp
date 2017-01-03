@@ -11,6 +11,7 @@ void glRotatef(const quat &q);
 void kll::Object::Draw()
 {
     glPushMatrix();
+    glColor4f(1,1,1,mAlpha);
     glTranslatef(mPosition.x, mPosition.y, mPosition.z);
     glRotatef(mOrientation);
     glScalef(mScale.x, mScale.y, mScale.z);

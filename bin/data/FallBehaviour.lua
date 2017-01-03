@@ -10,27 +10,29 @@
 FallBehaviour = {}
 
 function FallBehaviour:new(target, gravity)
-    o = {mTarget=target, gravity=gravity}
+    o = {target=target, gravity=gravity, timer=0}
     setmetatable(o, self)
     self.__index = self
     return o
 end
 
 function FallBehaviour:Update(dt)
+    self.timer = self.timer + dt
 
-    local velocity = self.mTarget:GetVelocity()
+    local velocity = self.target:GetVelocity()
     local acceleration = self.gravity * dt
     velocity = velocity + acceleration
 
-    self.mTarget:SetVelocity(velocity)
+    self.target:SetVelocity(velocity)
 
 end
 
 function FallBehaviour:ShouldObjectBeDestroyed()
-    return false
+    local LIFETIME = 10
+    return (self.timer > LIFETIME)
 end
 
 function FallBehaviour:GetTarget()
-    return self.mTarget
+    return self.target
 end
 

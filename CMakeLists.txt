@@ -27,6 +27,7 @@ set(SWIG_DEPENDENCIES ${SWIG_INPUT}
         ${CMAKE_CURRENT_SOURCE_DIR}/src/kll/Engine/gvec3.h
         ${CMAKE_CURRENT_SOURCE_DIR}/src/kll/Block.h
         ${CMAKE_CURRENT_SOURCE_DIR}/src/kll/Object.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/kll/kll.h
         )
 
 add_custom_command(

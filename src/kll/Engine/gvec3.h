@@ -13,6 +13,7 @@ using glm::quat;
 namespace kll
 {
 
+
     struct gvec3
     {
         gvec3() = default;
@@ -25,14 +26,17 @@ namespace kll
 
         gvec3 operator +(const gvec3& v) const { return gvec3(x+v.x, y+v.y, z+v.z); }
         gvec3 operator -(const gvec3& v) const { return gvec3(x-v.x, y-v.y, z-v.z); }
-        gvec3 operator *(float f) const { return vec3(x*f, y*f, z*f); }
-        gvec3 operator -(float f) const { return vec3(x/f, y/f, z/4); }
+        gvec3 operator *(float f) const { return gvec3(x*f, y*f, z*f); }
+        gvec3 operator /(float f) const { return gvec3(x/f, y/f, z/f); }
 
         operator vec3() const
         { return vec3(x, y, z); }
 
         float x = 0, y = 0, z = 0;
     };
+
+    static float Length(const gvec3& v) { return sqrtf(v.x*v.x + v.y*v.y + v.z*v.z); }
+    static gvec3 Normalize(const gvec3& v) { return v/Length(v); }
 
     struct gquat
     {

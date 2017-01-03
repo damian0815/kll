@@ -25,3 +25,12 @@ float kll::RandomNormal()
     }
     return (value - 6.0f)/6.0f;
 }
+
+
+float kll::RandomNormal(float min, float max)
+{
+    auto range = max - min;
+    auto center = min + range/2;
+    auto r = RandomNormal();
+    return r*range + center;
+}
