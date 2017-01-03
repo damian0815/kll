@@ -34,7 +34,6 @@ function Behaviours:Update(dt)
     end
 
     for k, behaviourIndex in ipairs(toDestroy) do
-        print("lua removing behaviour " .. behaviourIndex)
         table.remove(self.mBehaviours, behaviourIndex)
     end
 

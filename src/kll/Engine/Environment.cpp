@@ -4,7 +4,6 @@
 
 #include <set>
 #include "Environment.h"
-#include "../Object.h"
 #include "../Behaviours/Behaviour.h"
 
 using std::set;
@@ -20,6 +19,13 @@ namespace kll
         return block;
     }
 
+    kll::TunnelSection *Environment::AddTunnelSection(float length, float radius, int segments, int slices)
+    {
+        auto section = new TunnelSection(length, radius, segments, slices);
+        AddObject(section);
+        return section;
+    }
+
     void Environment::AddObject(Object *o)
     {
         mObjects.push_back(o);
@@ -30,7 +36,6 @@ namespace kll
         for (auto& o: mObjects) {
             o->Draw();
         }
-
     }
 
     void Environment::Update(float dt)
@@ -62,7 +67,7 @@ namespace kll
     {
         auto it = find(mObjects.begin(), mObjects.end(), o);
         assert(it != mObjects.end());
-        fmt::print("erasing object at index {0} ({1} remain)\n", it - mObjects.begin(), mObjects.size());
+        //fmt::print("erasing object at index {0} ({1} remain)\n", it - mObjects.begin(), mObjects.size());
         mObjects.erase(it);
 
         auto& behaviours = mBehaviours[o];
@@ -86,6 +91,7 @@ namespace kll
         }
 
     }
+
 
 
 }

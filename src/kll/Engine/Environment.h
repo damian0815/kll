@@ -7,9 +7,10 @@
 
 #include "../kll.h"
 #include <map>
-#include "../Block.h"
+#include "../Objects/Block.h"
 #include "gvec3.h"
 #include "BehaviourPool.h"
+#include "../Objects/TunnelSection.h"
 
 using std::map;
 
@@ -35,6 +36,7 @@ namespace kll
         void Update(float dt);
 
         kll::Block * AddBlock(kll::gvec3 initialPos, kll::gvec3 dimensions);
+        kll::TunnelSection *AddTunnelSection(float length, float radius, int segments=8, int slices=2);
 
         void PrintHello() { fmt::print("hello!\n"); }
 

@@ -21,7 +21,14 @@ namespace kll
         Mesh() {}
         Mesh(const par_shapes_mesh_s* parShapeMesh);
 
+        void CalculateNormals();
+
+        Mesh(const vector<vec3> &vertices, const vector<int> &triangles)
+            : mVertices(vertices), mTriangles(triangles) { CalculateNormals(); }
+
         void Draw();
+
+        void DrawWireframe();
 
     private:
 

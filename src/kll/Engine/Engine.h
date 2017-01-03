@@ -8,7 +8,6 @@
 
 #include "ofxLua.h"
 #include "Environment.h"
-#include "../PercussionVisuals.h"
 #include "MidiTriggers.h"
 #include "LuaMidiSender.h"
 #include "FolderWatcher.h"
@@ -30,7 +29,6 @@ namespace kll
 
         MidiTriggers mTriggers;
         Environment mEnvironment;
-        PercussionVisuals mPercussionVisuals;
         ofxLua mLua;
 
         LuaMidiSender mLuaMidiSender;

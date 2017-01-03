@@ -6,7 +6,7 @@
 #define OFAPP_BLOCK_H
 
 #include "Object.h"
-#include "Mesh.h"
+#include "../Mesh.h"
 
 namespace kll
 {
@@ -15,9 +15,10 @@ namespace kll
     {
     public:
         Block(vec3 initialPos, vec3 dimensions);
-        void DrawImpl() override;
 
-        void UpdateImpl(float dt) override;
+    protected:
+        void DrawImpl() override;
+        void UpdateImpl(float dt) override {};
 
     private:
         Mesh mMesh;

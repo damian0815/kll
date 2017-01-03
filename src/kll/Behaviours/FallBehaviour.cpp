@@ -3,7 +3,7 @@
 //
 
 #include "FallBehaviour.h"
-#include "../Object.h"
+#include "../Objects/Object.h"
 
 kll::FallBehaviour::FallBehaviour(Object *target, vec3 gravity)
         : mGravity(gravity)

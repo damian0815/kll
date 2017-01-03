@@ -4,7 +4,7 @@
 
 #include <glm/gtc/quaternion.hpp>
 #include "AddRotationBehaviour.h"
-#include "../Object.h"
+#include "../Objects/Object.h"
 
 kll::AddRotationBehaviour::AddRotationBehaviour(Object *target, vec3 angularVelocity)
         : mAngularVelocity(angularVelocity)

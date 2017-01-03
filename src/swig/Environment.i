@@ -2,8 +2,9 @@
 %module kll
 %{
     #include "../kll/kll.h"
-    #include "../kll/Block.h"
-    #include "../kll/Object.h"
+    #include "../kll/Objects/Block.h"
+    #include "../kll/Objects/Object.h"
+    #include "../kll/Objects/TunnelSection.h"
     #include "../kll/Engine/Environment.h"
     #include "../kll/Behaviours/ImplodeBehaviour.h"
     #include "../kll/Behaviours/Behaviour.h"
@@ -20,8 +21,9 @@
 %include <std_map.i>
 
 %include "../kll/kll.h"
-%include "../kll/Object.h"
-%include "../kll/Block.h"
+%include "../kll/Objects/Object.h"
+%include "../kll/Objects/Block.h"
+%include "../kll/Objects/TunnelSection.h"
 %include "../kll/Engine/Environment.h"
 %include "../kll/Behaviours/Behaviour.h"
 %include "../kll/Behaviours/ImplodeBehaviour.h"

@@ -6,8 +6,8 @@
 #define OFAPP_OBJECT_H
 
 #include <glm/gtc/quaternion.hpp>
-#include "kll.h"
-#include "Engine/gvec3.h"
+#include "../kll.h"
+#include "../Engine/gvec3.h"
 
 using glm::quat;
 

@@ -5,7 +5,6 @@
 
 
 #include "Engine.h"
-#include "../PercussionVisuals.h"
 #include "Clock.h"
 #include "LuaHelpers.h"
 
@@ -20,7 +19,6 @@ void kll::Engine::Setup()
     mLua.addListener(this);
 
     mTriggers.Setup();
-    //mTriggers.GetNoteOnEvent(2).add(&mPercussionVisuals, &PercussionVisuals::OnDrumNote, 0);
 
     Clock::Get()->Setup(mTriggers);
 

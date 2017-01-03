@@ -2,9 +2,9 @@
 // Created by Damian Stewart on 10/12/2016.
 //
 
-#include <OpenGL/gl.h>
+#include <OpenGL/OpenGL.h>
 #include "Block.h"
-#include "../3rdparty/par_shapes.h"
+#include "../../3rdparty/par_shapes.h"
 
 namespace kll
 {
@@ -12,11 +12,6 @@ namespace kll
     void Block::DrawImpl()
     {
         mMesh.Draw();
-    }
-
-    void Block::UpdateImpl(float dt)
-    {
-
     }
 
     Block::Block(vec3 initialPos, vec3 dimensions)
@@ -32,5 +27,6 @@ namespace kll
         par_shapes_free_mesh(parMesh);
 
     }
+
 
 }

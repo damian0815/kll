@@ -2,7 +2,6 @@
 // Created by Damian Stewart on 11/12/2016.
 //
 
-#include "PercussionVisuals.h"
 #include "kll.h"
 
 std::ostream& glm::operator<<(std::ostream& o, const vec3& v)

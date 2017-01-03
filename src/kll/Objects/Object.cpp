@@ -4,7 +4,7 @@
 
 #include "Object.h"
 #include <OpenGL/gl.h>
-#include "kll.h"
+#include "../kll.h"
 
 void glRotatef(const quat &q);
 
