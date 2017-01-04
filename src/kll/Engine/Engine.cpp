@@ -8,11 +8,30 @@
 #include "Clock.h"
 #include "LuaHelpers.h"
 
-static const auto SCRIPT_FILE = "testKll.lua";
+static const auto SCRIPT_FILE = "lua/testKll.lua";
 
 extern "C" {
     int luaopen_kll(lua_State* l);
 }
+
+static kll::Engine* gInstance = nullptr;
+
+kll::Engine::~Engine()
+{
+    gInstance = nullptr;
+}
+
+kll::Engine::Engine()
+{
+    assert(gInstance == nullptr);
+    gInstance = this;
+}
+
+kll::Engine* kll::Engine::GetInstance()
+{
+    return gInstance;
+}
+
 
 void kll::Engine::Setup()
 {
@@ -25,19 +44,25 @@ void kll::Engine::Setup()
     mLuaMidiSender.Setup(&mLua, &mTriggers);
 
     mLuaScriptFolderWatcher.GetChangedEvent().add(this, &Engine::OnLuaScriptFolderChanged, 0);
+    mShaderFolderWatcher.GetChangedEvent().add(this, &Engine::OnShaderFolderChanged, 0);
+
     const bool MAKE_ABSOLUTE = true;
-    mLuaScriptFolderWatcher.Setup(ofToDataPath("", MAKE_ABSOLUTE));
+    mShaderFolderWatcher.Setup(ofToDataPath("shaders", MAKE_ABSOLUTE));
+    mLuaScriptFolderWatcher.Setup(ofToDataPath("lua", MAKE_ABSOLUTE));
+
     ReloadLuaScript();
+    ReloadShaders();
 }
 
 void kll::Engine::Update(float dt)
 {
     mLuaScriptFolderWatcher.Update();
-    mTriggers.Update();
+    mShaderFolderWatcher.Update();
 
     if (mLua.isValid()) {
         CallLuaFunction(&mLua, "update", dt);
     }
+    mTriggers.Update();
 
     kll::Clock::Get()->Update(dt);
     mEnvironment.Update(dt);
@@ -75,4 +100,32 @@ void kll::Engine::OnLuaScriptFolderChanged(const void *sender, string &fullPath)
     fmt::print("Reloading lua script because {0} changed\n", fullPath);
     ReloadLuaScript();
 }
+
+void kll::Engine::ReloadShaders()
+{
+    for (const auto shader: mShaders) {
+        shader->Reload();
+    }
+}
+
+void kll::Engine::OnShaderFolderChanged(const void *sender, string &fullPath)
+{
+    fmt::print("Reloading shaders because {0} changed\n", fullPath);
+    ReloadShaders();
+}
+
+void kll::Engine::RegisterShader(kll::Shader *pShader)
+{
+    auto it = std::find(mShaders.begin(), mShaders.end(), pShader);
+    assert(it == mShaders.end());
+    mShaders.push_back(pShader);
+}
+
+void kll::Engine::UnregisterShader(kll::Shader *pShader)
+{
+    auto it = std::find(mShaders.begin(), mShaders.end(), pShader);
+    assert(it != mShaders.end());
+    mShaders.erase(it);
+}
+
 

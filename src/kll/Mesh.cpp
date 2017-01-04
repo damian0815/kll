@@ -8,6 +8,8 @@
 #include <glm/gtx/normal.hpp>
 
 using std::pair;
+using glm::vec2;
+
 
 static void PopulateVectorFromFloatArray(vector<vec3>& vector, float* source, int numPoints)
 {
@@ -16,6 +18,7 @@ static void PopulateVectorFromFloatArray(vector<vec3>& vector, float* source, in
         vector[i] = vec3(source[i*3+0], source[i*3+1], source[i*3+2]);
     }
 }
+
 
 kll::Mesh::Mesh(const par_shapes_mesh *parShapeMesh)
 {
@@ -38,25 +41,24 @@ static void glNormal3f(const vec3 &n)
     glNormal3f(n.x, n.y, n.z);
 }
 
+static void glTexCoord2f(const vec2& st)
+{
+    glTexCoord2f(st.s, st.t);
+}
+
 void kll::Mesh::Draw()
 {
-    glBegin(GL_TRIANGLES);
-    for (int triIdx=0; triIdx<mTriangles.size()/3; triIdx++) {
-        int* triangle = &mTriangles[triIdx*3];
-        for (int i=0; i<3; i++) {
-            glVertex3f(mVertices[triangle[i]]);
-            glNormal3f(mNormals[triangle[i]]);
-        }
-    }
-    glEnd();
-
+    ofMesh mesh(OF_PRIMITIVE_TRIANGLES, toOfVector(mVertices));
+    mesh.addIndices(mTriangles);
+    mesh.addNormals(toOfVector(mNormals));
+    mesh.draw();
 }
 
 void kll::Mesh::DrawWireframe()
 {
     glBegin(GL_LINES);
     for (int triIdx=0; triIdx<mTriangles.size()/3; triIdx++) {
-        int* triangle = &mTriangles[triIdx*3];
+        unsigned int* triangle = &mTriangles[triIdx*3];
         for (int i=0; i<3; i++) {
             glVertex3f(mVertices[triangle[i]]);
             glVertex3f(mVertices[triangle[(i+1)%3]]);
@@ -82,7 +84,22 @@ void kll::Mesh::CalculateNormals()
     }
 
     mNormals = vertexNormalAccumulator;
-
 }
+
+vector<ofVec3f> kll::Mesh::toOfVector(const vector<vec3> &x)
+{
+    vector<ofVec3f> result;
+    std::transform(x.begin(), x.end(), std::back_inserter(result),
+                   [](const auto& v) { return ofVec3f(v.x, v.y, v.z); });
+    return result;
+}
+
+kll::Mesh::Mesh(const vector<vec3> &vertices, const vector<unsigned int> &triangles)
+                : mVertices(vertices), mTriangles(triangles)
+{
+    CalculateNormals();
+}
+
+
 
 

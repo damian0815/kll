@@ -5,8 +5,8 @@
 #ifndef OFAPP_BLOCK_H
 #define OFAPP_BLOCK_H
 
-#include "Object.h"
 #include "../Mesh.h"
+#include "Object.h"
 
 namespace kll
 {

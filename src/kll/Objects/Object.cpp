@@ -2,28 +2,29 @@
 // Created by Damian Stewart on 10/12/2016.
 //
 
+#include <ofMain.h>
 #include "Object.h"
 #include <OpenGL/gl.h>
 #include "../kll.h"
 
-void glRotatef(const quat &q);
+void ofRotate(const quat &q);
 
 void kll::Object::Draw()
 {
-    glPushMatrix();
-    glColor4f(1,1,1,mAlpha);
-    glTranslatef(mPosition.x, mPosition.y, mPosition.z);
-    glRotatef(mOrientation);
-    glScalef(mScale.x, mScale.y, mScale.z);
+    ofPushMatrix();
+    ofSetColor(ofFloatColor(1,1,1,mAlpha));
+    ofTranslate(mPosition.x, mPosition.y, mPosition.z);
+    ofRotate(mOrientation);
+    ofScale(mScale.x, mScale.y, mScale.z);
     DrawImpl();
-    glPopMatrix();
+    ofPopMatrix();
 }
 
-void glRotatef(const quat &q)
+void ofRotate(const quat &q)
 {
     auto angle = glm::degrees(glm::angle(q));
     auto axis = glm::axis(q);
-    glRotatef(angle, axis.x, axis.y, axis.z);
+    ofRotate(angle, axis.x, axis.y, axis.z);
 }
 
 void kll::Object::Update(float dt)

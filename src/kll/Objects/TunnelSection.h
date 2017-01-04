@@ -7,6 +7,7 @@
 
 #include "Object.h"
 #include "../Mesh.h"
+#include "../Render/FlatShader.h"
 
 namespace kll
 {
@@ -22,6 +23,7 @@ namespace kll
 
     private:
         Mesh mMesh;
+        FlatShader mShader;
 
     };
 

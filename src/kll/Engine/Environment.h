@@ -11,6 +11,7 @@
 #include "gvec3.h"
 #include "BehaviourPool.h"
 #include "../Objects/TunnelSection.h"
+#include "../Render/Shader.h"
 
 using std::map;
 

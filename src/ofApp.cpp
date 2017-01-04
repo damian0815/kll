@@ -3,8 +3,8 @@
 void ofApp::setup()
 {
     ofSetFrameRate(60);
-    mFeedbackTunnel.setup(ofGetWidth(), ofGetHeight());
 
+    ofEnableAlphaBlending();
     mKllEngine.Setup();
 }
 
@@ -16,19 +16,7 @@ void ofApp::update()
 void ofApp::draw()
 {
     ofBackground(0);
-    /*
-    ofSetupScreen();
-    mFeedbackTunnel.begin();
-
-    if (mShouldDrawTick) {
-        ofDrawCircle(20, 20, 10);
-        mShouldDrawTick = false;
-    }
-
-    mPercussionVisuals.Draw();
-
-    mFeedbackTunnel.end();*/
-
+    ofSetColor(255);
     mKllEngine.Draw();
 }
 

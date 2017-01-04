@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ofMain.h"
-#include "FeedbackTunnel.h"
 #include "kll/Engine/Engine.h"
 
 class ofApp : public ofBaseApp
@@ -36,8 +35,6 @@ class ofApp : public ofBaseApp
 
 
     kll::Engine mKllEngine;
-
-    FeedbackTunnel mFeedbackTunnel;
 
 
 

@@ -2,8 +2,8 @@
 // Created by Damian Stewart on 10/12/2016.
 //
 
-#include <OpenGL/OpenGL.h>
 #include "Block.h"
+#include <OpenGL/OpenGL.h>
 #include "../../3rdparty/par_shapes.h"
 
 namespace kll

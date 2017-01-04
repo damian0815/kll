@@ -17,23 +17,39 @@ namespace kll
     class Engine : public ofxLuaListener
     {
     public:
+        Engine();
+        virtual ~Engine();
+
+        static Engine* GetInstance();
+
         void Setup();
         void Update(float dt);
         void Draw();
 
+
+        void RegisterShader(Shader *pShader);
+
+        void UnregisterShader(Shader *pShader);
+
     private:
         void ReloadLuaScript();
+        void ReloadShaders();
 
         void errorReceived(string &msg) override;
+
         void OnLuaScriptFolderChanged(const void *sender, string &fullPath);
+        void OnShaderFolderChanged(const void *sender, string &fullPath);
 
         MidiTriggers mTriggers;
         Environment mEnvironment;
         ofxLua mLua;
 
+        vector<Shader*> mShaders;
+
         LuaMidiSender mLuaMidiSender;
 
         FolderWatcher mLuaScriptFolderWatcher;
+        FolderWatcher mShaderFolderWatcher;
 
 
     };

@@ -36,7 +36,7 @@ function HandleDrumNote(pitch, velocity)
 
     if pitch == 60 then
         -- kick
-        local block = environment:AddBlock(kll.gvec3(0,0.2,0), kll.gvec3(1.2,0.03,0.03))
+        local block = environment:AddBlock(kll.gvec3(0,-0.3,0), kll.gvec3(1.2,0.1,0.1))
         block:SetVelocity(kll.gvec3(0,0,0))
 
         local fall = FallBehaviour:new(block, kll.gvec3(0, 3, 0))
@@ -51,7 +51,7 @@ function HandleDrumNote(pitch, velocity)
 
         local center = kll.gvec3(0.5 * math.cos(phase*math.pi*2), 0.5, 0.0)
         local block = environment:AddBlock(center, kll.gvec3(0.1,0.01, 0.01))
-        block:SetVelocity(kll.gvec3(0,0,1))
+        block:SetVelocity(kll.gvec3(0,0,0))
 
         --local screenCenter = kll.gvec3(0,0,0)
         --local towardsCenter = kll.Normalize(screenCenter - center)
@@ -63,7 +63,8 @@ function HandleDrumNote(pitch, velocity)
         -- snare
 
         local size = kll.RandomNormal(0.6, 0.8);
-        local section = environment:AddTunnelSection(0.3, size, 10, 3)
+        local length = 0.4
+        local section = environment:AddTunnelSection(length, size, 10, 3)
 
         local fade = FadeBehaviour:new(section, 0.00001)
         gBehaviours:AddBehaviour(fade)
@@ -77,12 +78,13 @@ function HandleBassNote(pitch, velocity)
     local width = kll.RandomNormal(0.05, 0.1);
     local depth = 0.4
 
-    local y = 1-((pitch-30)/20)
+    local y = -((pitch-50)/40)
 
-    print("p " .. pitch .. "  v " .. velocity)
+    --print("p " .. pitch .. "  v " .. velocity)
     local block = environment:AddBlock(kll.gvec3(0,y,0), kll.gvec3(width, height, depth))
     block:SetVelocity(kll.gvec3(0,0,1))
 
+    local fade = FadeBehaviour:new(block, 0.1)
     gBehaviours:AddBehaviour(fade)
 
 

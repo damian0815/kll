@@ -24,7 +24,7 @@ static kll::Mesh BuildTunnelMesh(float length, float radius, int numSegments, in
         }
     }
 
-    vector<int> triangles;
+    vector<unsigned int> triangles;
     for (int whichSlice=0; whichSlice<(numSlices-1); whichSlice++) {
 
         int thisSliceStartVIdx = whichSlice * numSegments;
@@ -48,12 +48,15 @@ static kll::Mesh BuildTunnelMesh(float length, float radius, int numSegments, in
 
 void kll::TunnelSection::DrawImpl()
 {
-    mMesh.DrawWireframe();
+    mShader.Begin();
+    mMesh.Draw();
+    mShader.End();
 }
 
 kll::TunnelSection::TunnelSection(float length, float radius, int numSegments, int numSlices)
 : mMesh(BuildTunnelMesh(length, radius, numSegments, numSlices))
 {
+    mShader.Reload();
 }
 
 
