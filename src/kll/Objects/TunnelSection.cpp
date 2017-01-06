@@ -12,6 +12,7 @@ static kll::Mesh BuildTunnelMesh(float length, float radius, int numSegments, in
     auto sliceDistance = length / (numSlices-1);
 
     vector<vec3> vertices;
+    vector<vec2> texCoords;
     for (int whichSlice=0; whichSlice<numSlices; whichSlice++) {
         vec3 tunnelStartCenter(0, 0, 0);
         vec3 tunnelDirection(0, 0, 1);
@@ -21,6 +22,7 @@ static kll::Mesh BuildTunnelMesh(float length, float radius, int numSegments, in
             auto thisOutDirection = rotateZ(tunnelOutDirection, segmentAngle * whichSegment);
 
             vertices.push_back(thisSliceTunnelCenter + thisOutDirection * radius);
+            texCoords.push_back(vec2(float(whichSlice)/numSlices, float(whichSegment)/numSegments));
         }
     }
 
@@ -43,7 +45,7 @@ static kll::Mesh BuildTunnelMesh(float length, float radius, int numSegments, in
         }
     }
 
-    return kll::Mesh(vertices, triangles);
+    return kll::Mesh(vertices, triangles, texCoords);
 }
 
 void kll::TunnelSection::DrawImpl()

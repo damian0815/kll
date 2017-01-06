@@ -8,6 +8,7 @@
 #include <gl/ofShader.h>
 #include <vector>
 #include <glm/glm.hpp>
+#include <gl/ofVbo.h>
 
 using std::vector;
 using glm::vec3;
@@ -22,7 +23,7 @@ namespace kll
     public:
         Mesh() {}
         Mesh(const par_shapes_mesh_s* parShapeMesh);
-        Mesh(const vector<vec3> &vertices, const vector<unsigned int> &triangles);
+        Mesh(const vector<vec3> &vertices, const vector<unsigned int> &triangles, const vector<vec2>& texCoords);
 
         void Draw();
 
@@ -32,12 +33,14 @@ namespace kll
 
         void CalculateNormals();
 
-        vector<vec3> mVertices;
-        vector<vec3> mNormals;
+        vector<ofVec3f> mVertices;
+        vector<ofVec3f> mNormals;
 
         vector<unsigned int> mTriangles;
 
-        vector<ofVec3f> toOfVector(const vector<vec3> &x);
+        ofMesh mMesh;
+
+        void PopulateMesh();
     };
 
 }
