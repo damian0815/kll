@@ -34,8 +34,14 @@ namespace kll {
         const kll::gquat GetOrientation() const { return mOrientation; }
         void SetOrientation(const kll::gquat &q) { mOrientation = q; }
 
+        const kll::gvec3 GetPosition() const { return mPosition; }
+        void SetPosition(const kll::gvec3 &p) { mPosition = p; }
+
         float GetAlpha() const { return mAlpha; }
         void SetAlpha(float alpha) { mAlpha = alpha; }
+
+        float GetShininess() const { return mMaterial.getShininess(); }
+        void SetShininess(float s) { mMaterial.setShininess(s); }
 
     protected:
 

@@ -8,7 +8,7 @@
 #include "Clock.h"
 #include "LuaHelpers.h"
 
-static const auto SCRIPT_FILE = "lua/testKll.lua";
+static const auto SCRIPT_FILE = "lua/kll.lua";
 
 extern "C" {
     int luaopen_kll(lua_State* l);

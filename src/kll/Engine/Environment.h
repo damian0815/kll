@@ -47,9 +47,11 @@ namespace kll
 
         void Clear();
 
+        kll::Lighty * GetLight() { return &mLight; }
+
     private:
 
-        Light mLight;
+        kll::Lighty mLight;
 
         vector<Object*> mObjects;
         map<Object*, vector<Behaviour*>> mBehaviours;

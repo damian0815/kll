@@ -6,12 +6,18 @@
 #include "Light.h"
 
 
-void kll::Light::UpdateColor()
+void kll::Lighty::UpdateColor()
 {
     if (!mLight.getIsEnabled()) {
         return;
     }
 
     mLight.setDiffuseColor(mColor * mIntensity);
-    mLight.setDiffuseColor(mColor * mIntensity);
+    mLight.setSpecularColor(mColor * mIntensity);
+}
+
+void kll::Lighty::SetIntensity(float i)
+{
+    mIntensity = i;
+    UpdateColor();
 }

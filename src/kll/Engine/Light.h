@@ -6,18 +6,22 @@
 #define OFAPP_LIGHT_H
 
 #include <gl/ofLight.h>
+#include "gvec3.h"
 
 namespace kll
 {
 
-    class Light
+    class Lighty
     {
     public:
         void Enable() { mLight.enable(); UpdateColor(); }
         void Disable() { mLight.disable(); }
 
         float GetIntensity() { return mIntensity; }
-        void SetIntensity(float i) { mIntensity = i; UpdateColor(); }
+        void SetIntensity(float i);
+
+        kll::gvec3 GetPosition() { return mLight.getPosition(); }
+        void SetPosition(kll::gvec3 p) { mLight.setPosition(p); }
 
     private:
         void UpdateColor();

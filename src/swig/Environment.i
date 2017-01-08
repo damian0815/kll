@@ -5,13 +5,13 @@
     #include "../kll/Objects/Block.h"
     #include "../kll/Objects/Object.h"
     #include "../kll/Objects/TunnelSection.h"
+    #include "../kll/Engine/Light.h"
     #include "../kll/Engine/Environment.h"
     #include "../kll/Behaviours/ImplodeBehaviour.h"
     #include "../kll/Behaviours/Behaviour.h"
     #include "../kll/Engine/BehaviourPool.h"
     #include "../kll/Engine/gvec3.h"
     #include "../kll/Engine/Clock.h"
-    #include "../kll/Engine/Light.h"
 
     using namespace kll;
 %}
@@ -25,11 +25,11 @@
 %include "../kll/Objects/Object.h"
 %include "../kll/Objects/Block.h"
 %include "../kll/Objects/TunnelSection.h"
+%include "../kll/Engine/Light.h"
 %include "../kll/Engine/Environment.h"
 %include "../kll/Behaviours/Behaviour.h"
 %include "../kll/Behaviours/ImplodeBehaviour.h"
 %include "../kll/Engine/BehaviourPool.h"
 %include "../kll/Engine/gvec3.h"
 %include "../kll/Engine/Clock.h"
-%include "../kll/Engine/Light.h"
 

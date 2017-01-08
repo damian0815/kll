@@ -7,6 +7,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
+#include "ofMain.h"
 using glm::vec3;
 using glm::quat;
 
@@ -23,6 +24,8 @@ namespace kll
 
         gvec3(const vec3 &v) : x(v.x), y(v.y), z(v.z)
         {}
+        gvec3(const ofVec3f &v) : x(v.x), y(v.y), z(v.z)
+        {}
 
         gvec3 operator +(const gvec3& v) const { return gvec3(x+v.x, y+v.y, z+v.z); }
         gvec3 operator -(const gvec3& v) const { return gvec3(x-v.x, y-v.y, z-v.z); }
@@ -31,6 +34,8 @@ namespace kll
 
         operator vec3() const
         { return vec3(x, y, z); }
+        operator ofVec3f() const
+        { return ofVec3f(x, y, z); }
 
         float x = 0, y = 0, z = 0;
     };

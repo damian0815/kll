@@ -15,7 +15,7 @@ kll::Object::Object()
     ofMaterial::Data materialData;
 
     materialData.diffuse = ofFloatColor::white;
-    materialData.ambient = ofFloatColor::darkGray;
+    materialData.ambient = ofFloatColor(0.01, 0.01, 0.01, 1);
     materialData.specular = ofFloatColor::white;
     materialData.emissive = ofFloatColor::black;
     materialData.shininess = 10;
