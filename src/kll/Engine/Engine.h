@@ -26,10 +26,10 @@ namespace kll
         void Update(float dt);
         void Draw();
 
-
         void RegisterShader(Shader *pShader);
-
         void UnregisterShader(Shader *pShader);
+
+        void SetIsRetina(bool r) { mIsRetina = r; }
 
     private:
         void ReloadLuaScript();
@@ -51,6 +51,7 @@ namespace kll
         FolderWatcher mLuaScriptFolderWatcher;
         FolderWatcher mShaderFolderWatcher;
 
+        bool mIsRetina;
 
     };
 }

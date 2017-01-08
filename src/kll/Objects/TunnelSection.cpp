@@ -50,6 +50,7 @@ static kll::Mesh BuildTunnelMesh(float length, float radius, int numSegments, in
 
 void kll::TunnelSection::DrawImpl()
 {
+    //ofSetColor(1,1,1,GetAlpha());
     mShader.Begin();
     mMesh.Draw();
     mShader.End();
@@ -60,5 +61,6 @@ kll::TunnelSection::TunnelSection(float length, float radius, int numSegments, i
 {
     mShader.Reload();
 }
+
 
 

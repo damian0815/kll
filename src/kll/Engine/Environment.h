@@ -6,12 +6,14 @@
 #define OFAPP_ENVIRONMENT_H
 
 #include "../kll.h"
+#include "ofMain.h"
 #include <map>
 #include "../Objects/Block.h"
 #include "gvec3.h"
 #include "BehaviourPool.h"
 #include "../Objects/TunnelSection.h"
 #include "../Render/Shader.h"
+#include "Light.h"
 
 using std::map;
 
@@ -23,7 +25,7 @@ namespace kll
     class Environment
     {
     public:
-        Environment() { assert(mInstance == nullptr); mInstance = this; }
+        Environment();
         static Environment* GetInstance() { return mInstance; }
 
         bool HasObject(Object *o) { return std::find(mObjects.begin(), mObjects.end(), o) != mObjects.end(); }
@@ -46,6 +48,8 @@ namespace kll
         void Clear();
 
     private:
+
+        Light mLight;
 
         vector<Object*> mObjects;
         map<Object*, vector<Behaviour*>> mBehaviours;

@@ -37,6 +37,9 @@ class ofApp : public ofBaseApp
     kll::Engine mKllEngine;
 
 
+    bool mInitialIsRetina;
+    float mInitialWidth, mInitialHeight;
+    bool GetIsRetina();
 
-
+    bool mWasRetina;
 };

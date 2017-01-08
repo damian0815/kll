@@ -82,6 +82,7 @@ void ofApp::touchCancelled(ofTouchEventArgs& touch)
 
 void ofApp::windowResized(ofResizeEventArgs& window)
 {
+    fmt::print("window at ({0},{1})\n", ofGetWindowPositionX(), ofGetWindowPositionY());
 }
 
 void ofApp::dragged(ofDragInfo& dragged)
@@ -92,4 +93,14 @@ void ofApp::messageReceived(ofMessage& message)
 {
 }
 
+bool ofApp::GetIsRetina()
+{
+    auto glfwWindow = dynamic_cast<ofAppGLFWWindow*>(ofGetWindowPtr());
+    int glfwWidth=0, glfwHeight=0;
+    if (glfwWindow != nullptr) {
+        glfwGetFramebufferSize(glfwWindow->getGLFWWindow(), &glfwWidth, &glfwHeight);
+    }
+    fmt::print("retina check: of {0}x{1}, vp {2}x{3}, fb = {4}x{5}\n", ofGetWidth(), ofGetHeight(), ofGetViewportWidth(), ofGetViewportHeight(), glfwWidth, glfwHeight);
+    return (glfwHeight == ofGetHeight());
+}
 

@@ -8,10 +8,12 @@
 #include <vector>
 #include <glm/glm.hpp>
 #include <fmt/ostream.h>
+#include "ofMain.h"
 
 using std::vector;
 using std::shared_ptr;
 using glm::vec3;
+
 
 namespace glm
 {

@@ -12,6 +12,13 @@ namespace kll
 {
     Environment* Environment::mInstance = nullptr;
 
+    Environment::Environment()
+    {
+        assert(mInstance == nullptr);
+        mInstance = this;
+
+    }
+
     Block * Environment::AddBlock(kll::gvec3 initialPos, kll::gvec3 dimensions)
     {
         auto block = new Block(initialPos, dimensions);
@@ -33,9 +40,11 @@ namespace kll
 
     void Environment::Draw()
     {
+        mLight.Enable();
         for (auto& o: mObjects) {
             o->Draw();
         }
+        mLight.Disable();
     }
 
     void Environment::Update(float dt)

@@ -11,6 +11,7 @@
     #include "../kll/Engine/BehaviourPool.h"
     #include "../kll/Engine/gvec3.h"
     #include "../kll/Engine/Clock.h"
+    #include "../kll/Engine/Light.h"
 
     using namespace kll;
 %}
@@ -30,4 +31,5 @@
 %include "../kll/Engine/BehaviourPool.h"
 %include "../kll/Engine/gvec3.h"
 %include "../kll/Engine/Clock.h"
+%include "../kll/Engine/Light.h"
 

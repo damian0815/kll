@@ -21,6 +21,8 @@ namespace kll
         void DrawImpl() override;
         void UpdateImpl(float dt) override { }
 
+        bool GetShouldUseMaterial() override { return false; };
+
     private:
         Mesh mMesh;
         FlatShader mShader;

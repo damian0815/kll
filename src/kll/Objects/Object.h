@@ -16,7 +16,7 @@ namespace kll {
     class Object
     {
     public:
-        Object(): mScale(1,1,1) {}
+        Object();
         Object(vec3 initialPos): Object() { mPosition = initialPos; }
 
         virtual ~Object() {};
@@ -38,11 +38,14 @@ namespace kll {
         void SetAlpha(float alpha) { mAlpha = alpha; }
 
     protected:
+
         virtual void DrawImpl() = 0;
         virtual void UpdateImpl(float dt) = 0;
 
+        virtual bool GetShouldUseMaterial() { return true; }
 
     private:
+        ofMaterial mMaterial;
 
         float mAlpha = 1;
 
@@ -50,6 +53,7 @@ namespace kll {
         vec3 mVelocity;
         quat mOrientation;
         vec3 mScale;
+
     };
 
 }

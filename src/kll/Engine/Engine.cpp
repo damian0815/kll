@@ -52,10 +52,14 @@ void kll::Engine::Setup()
 
     ReloadLuaScript();
     ReloadShaders();
+
+    ofEnableDepthTest();
 }
 
 void kll::Engine::Update(float dt)
 {
+
+
     mLuaScriptFolderWatcher.Update();
     mShaderFolderWatcher.Update();
 
@@ -68,13 +72,15 @@ void kll::Engine::Update(float dt)
     mEnvironment.Update(dt);
 }
 
+
 void kll::Engine::Draw()
 {
-    static float SCREEN_WIDTH = 2;
+    float SCREEN_WIDTH = 2;
+
     float aspectRatio = (float(ofGetHeight())/ofGetWidth());
     float screenHeight = SCREEN_WIDTH * aspectRatio;
     ofSetupScreenPerspective(SCREEN_WIDTH, screenHeight);
-    ofTranslate(SCREEN_WIDTH/2, screenHeight/2);
+    ofTranslate(SCREEN_WIDTH / 2, screenHeight / 2);
     mEnvironment.Draw();
 }
 
