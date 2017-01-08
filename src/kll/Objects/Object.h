@@ -43,6 +43,9 @@ namespace kll {
         float GetShininess() const { return mMaterial.getShininess(); }
         void SetShininess(float s) { mMaterial.setShininess(s); }
 
+        bool GetLightingEnabled() { return mLightingEnabled; }
+        void SetLightingEnabled(bool tf) { mLightingEnabled = tf; }
+
     protected:
 
         virtual void DrawImpl() = 0;
@@ -53,6 +56,7 @@ namespace kll {
     private:
         ofMaterial mMaterial;
 
+        bool mLightingEnabled = true;
         float mAlpha = 1;
 
         vec3 mPosition;

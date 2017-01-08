@@ -49,26 +49,8 @@ namespace kll
 
     void Environment::Update(float dt)
     {
-       set<Object*> objectsToDestroy;
-
         for (auto& o: mObjects) {
             o->Update(dt);
-            if (mBehaviours.count(o)) {
-                auto& behaviours = mBehaviours[o];
-                for (auto b: behaviours) {
-                    b->Update(dt);
-                }
-
-                if (std::any_of(behaviours.begin(), behaviours.end(), [](auto b) {
-                    return b->ShouldObjectBeDestroyed();
-                })) {
-                    objectsToDestroy.insert(o);
-                }
-            }
-        }
-
-        for (auto o: objectsToDestroy) {
-            RemoveObject(o);
         }
     }
 
@@ -79,18 +61,7 @@ namespace kll
         //fmt::print("erasing object at index {0} ({1} remain)\n", it - mObjects.begin(), mObjects.size());
         mObjects.erase(it);
 
-        auto& behaviours = mBehaviours[o];
-        for (auto b: behaviours) {
-            mBehaviourPool.GiveBackBehaviour(b);
-        }
-        mBehaviours.erase(o);
-
         delete o;
-    }
-
-    void Environment::AttachBehaviour(Object *target, Behaviour *behaviour)
-    {
-        mBehaviours[target].push_back(behaviour);
     }
 
     void Environment::Clear()

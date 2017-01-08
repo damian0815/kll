@@ -10,7 +10,6 @@
 #include <map>
 #include "../Objects/Block.h"
 #include "gvec3.h"
-#include "BehaviourPool.h"
 #include "../Objects/TunnelSection.h"
 #include "../Render/Shader.h"
 #include "Light.h"
@@ -33,8 +32,6 @@ namespace kll
 
         void RemoveObject(Object *o);
 
-        void AttachBehaviour(Object *target, Behaviour *behaviour);
-
         void Draw();
         void Update(float dt);
 
@@ -42,8 +39,6 @@ namespace kll
         kll::TunnelSection *AddTunnelSection(float length, float radius, int segments=8, int slices=2);
 
         void PrintHello() { fmt::print("hello!\n"); }
-
-        kll::BehaviourPool* GetBehaviourPool() { return &mBehaviourPool; }
 
         void Clear();
 
@@ -54,9 +49,6 @@ namespace kll
         kll::Lighty mLight;
 
         vector<Object*> mObjects;
-        map<Object*, vector<Behaviour*>> mBehaviours;
-
-        BehaviourPool mBehaviourPool;
 
         static Environment *mInstance;
 

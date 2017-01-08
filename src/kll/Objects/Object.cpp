@@ -26,7 +26,7 @@ kll::Object::Object()
 
 void kll::Object::Draw()
 {
-    bool shouldUseMaterial = GetShouldUseMaterial();
+    bool shouldUseMaterial = GetLightingEnabled() && GetShouldUseMaterial();
 
     ofPushMatrix();
 
