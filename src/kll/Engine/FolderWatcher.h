@@ -24,7 +24,7 @@ namespace kll
         ~FolderWatcher();
 
         void Setup(string fullPath);
-        void Update();
+        void Update(float dt);
 
         ofEvent<string>& GetChangedEvent() { return mChangedEvent; }
 
@@ -46,6 +46,7 @@ namespace kll
 
         bool mShouldNotifyChanged = false;
 
+        float mUpdateTimer = 0;
 
         void UpdateFileWatchers();
     };

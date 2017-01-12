@@ -24,21 +24,27 @@ void kll::FolderWatcher::Setup(string fullPath)
     CreateAndDestroyFileWatchersAsNecessary(folderContents);
 }
 
-void kll::FolderWatcher::Update()
+void kll::FolderWatcher::Update(float dt)
 {
-    UpdateFileWatchers();
+    const float UPDATE_INTERVAL = 0.5f;
+    mUpdateTimer -= dt;
+    if (mUpdateTimer < 0) {
+        UpdateFileWatchers();
 
-    auto folderContents = GetFolderContents();
-    CreateAndDestroyFileWatchersAsNecessary(folderContents);
+        auto folderContents = GetFolderContents();
+        CreateAndDestroyFileWatchersAsNecessary(folderContents);
 
-    if (folderContents != mFolderContents) {
-        mShouldNotifyChanged = true;
-        mFolderContents = folderContents;
-    }
+        if (folderContents != mFolderContents) {
+            mShouldNotifyChanged = true;
+            mFolderContents = folderContents;
+        }
 
-    if (mShouldNotifyChanged) {
-        RaiseChanged();
-        mShouldNotifyChanged = false;
+        if (mShouldNotifyChanged) {
+            RaiseChanged();
+            mShouldNotifyChanged = false;
+        }
+
+        mUpdateTimer = UPDATE_INTERVAL;
     }
 }
 

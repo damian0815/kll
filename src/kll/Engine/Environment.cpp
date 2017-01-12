@@ -49,8 +49,18 @@ namespace kll
 
     void Environment::Update(float dt)
     {
-        for (auto& o: mObjects) {
+        vector<Object*> expiredObjects;
+
+        for (auto o: mObjects) {
             o->Update(dt);
+
+            if (o->GetRemainingLifetime() <= 0) {
+                expiredObjects.push_back(o);
+            }
+        }
+
+        for (auto o: expiredObjects) {
+            RemoveObject(o);
         }
     }
 

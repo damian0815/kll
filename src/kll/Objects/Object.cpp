@@ -58,6 +58,7 @@ void kll::Object::Update(float dt)
 {
     mPosition += mVelocity * dt;
     UpdateImpl(dt);
+    mRemainingLifetime -= dt;
 }
 
 

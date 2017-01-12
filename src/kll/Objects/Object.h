@@ -11,7 +11,10 @@
 
 using glm::quat;
 
+
 namespace kll {
+
+    const float MAX_LIFETIME = 30.0f;
 
     class Object
     {
@@ -46,6 +49,8 @@ namespace kll {
         bool GetLightingEnabled() { return mLightingEnabled; }
         void SetLightingEnabled(bool tf) { mLightingEnabled = tf; }
 
+        float GetRemainingLifetime() { return mRemainingLifetime; }
+
     protected:
 
         virtual void DrawImpl() = 0;
@@ -64,6 +69,7 @@ namespace kll {
         quat mOrientation;
         vec3 mScale;
 
+        float mRemainingLifetime = MAX_LIFETIME;
     };
 
 }

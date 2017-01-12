@@ -58,10 +58,8 @@ void kll::Engine::Setup()
 
 void kll::Engine::Update(float dt)
 {
-
-
-    mLuaScriptFolderWatcher.Update();
-    mShaderFolderWatcher.Update();
+    mLuaScriptFolderWatcher.Update(dt);
+    mShaderFolderWatcher.Update(dt);
 
     if (mLua.isValid()) {
         CallLuaFunction(&mLua, "update", dt);
