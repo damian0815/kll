@@ -26,16 +26,11 @@ kll::Object::Object()
 
 void kll::Object::Draw()
 {
-    bool shouldUseMaterial = GetLightingEnabled() && GetShouldUseMaterial();
-
     ofPushMatrix();
+    ofLoadMatrix(mModelViewMatrix);
 
-
-    ofTranslate(mPosition.x, mPosition.y, mPosition.z);
-    ofRotate(mOrientation);
-    ofScale(mScale.x, mScale.y, mScale.z);
-
-    ofSetColor(ofFloatColor(1,1,1,mAlpha));
+    ofSetColor(ofFloatColor(1, 1, 1, mAlpha));
+    bool shouldUseMaterial = GetLightingEnabled() && GetShouldUseMaterial();
     if (shouldUseMaterial) {
         mMaterial.begin();
     }
@@ -47,6 +42,21 @@ void kll::Object::Draw()
     ofPopMatrix();
 }
 
+ofMatrix4x4 kll::Object::GetTransformMatrix() const
+{
+    ofMatrix4x4 m;
+
+    m.scale(mScale.x, mScale.y, mScale.z);
+
+    auto angle = glm::degrees(glm::angle(mOrientation));
+    auto axis = glm::axis(mOrientation);
+    m.rotate(angle, axis.x, axis.y, axis.z);
+
+    m.translate(mPosition.x, mPosition.y, mPosition.z);
+
+    return m;
+}
+
 void ofRotate(const quat &q)
 {
     auto angle = glm::degrees(glm::angle(q));
@@ -56,8 +66,13 @@ void ofRotate(const quat &q)
 
 void kll::Object::Update(float dt)
 {
+    mPreviousModelViewMatrix = mModelViewMatrix;
+
     mPosition += mVelocity * dt;
     UpdateImpl(dt);
+
+    mModelViewMatrix = GetTransformMatrix() * ofGetCurrentMatrix(OF_MATRIX_MODELVIEW);
+
     mRemainingLifetime -= dt;
 }
 

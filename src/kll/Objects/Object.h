@@ -27,6 +27,8 @@ namespace kll {
         void Draw();
         void Update(float dt);
 
+        ofMatrix4x4 GetTransformMatrix() const;
+
         const vec3& GetScale() const { return mScale; }
         void SetScale(vec3 scale) { mScale = scale; }
 
@@ -56,7 +58,7 @@ namespace kll {
         virtual void DrawImpl() = 0;
         virtual void UpdateImpl(float dt) = 0;
 
-        virtual bool GetShouldUseMaterial() { return true; }
+        virtual bool GetShouldUseMaterial() { return false; }
 
     private:
         ofMaterial mMaterial;
@@ -68,6 +70,8 @@ namespace kll {
         vec3 mVelocity;
         quat mOrientation;
         vec3 mScale;
+
+        ofMatrix4x4 mModelViewMatrix, mPreviousModelViewMatrix;
 
         float mRemainingLifetime = MAX_LIFETIME;
     };
