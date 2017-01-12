@@ -44,6 +44,8 @@ namespace kll
 
         kll::Lighty * GetLight() { return &mLight; }
 
+        const vector<kll::Object *> &GetAllObjects() { return mObjects; }
+
     private:
 
         kll::Lighty mLight;
