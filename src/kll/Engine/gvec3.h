@@ -59,6 +59,11 @@ namespace kll
         gquat(const quat &quat) : q(quat)
         {}
 
+        gquat(const float angle, const gvec3& axis) : q(glm::angleAxis(angle, vec3(axis)))
+        {}
+
+        operator ofQuaternion() const
+        { return ofQuaternion(q.x, q.y, q.z, q.w); }
         operator quat() const
         { return q; }
 

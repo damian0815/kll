@@ -13,6 +13,7 @@
 #include "../Objects/TunnelSection.h"
 #include "../Render/Shader.h"
 #include "Light.h"
+#include "KllCamera.h"
 
 using std::map;
 
@@ -42,13 +43,16 @@ namespace kll
 
         void Clear();
 
-        kll::Lighty * GetLight() { return &mLight; }
+        kll::KllLight * GetLight() { return &mLight; }
+
+        kll::KllCamera* GetCamera() { return &mCamera; }
 
         const vector<kll::Object *> &GetAllObjects() { return mObjects; }
 
     private:
 
-        kll::Lighty mLight;
+        kll::KllLight mLight;
+        kll::KllCamera mCamera;
 
         vector<Object*> mObjects;
 

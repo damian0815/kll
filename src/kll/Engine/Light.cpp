@@ -6,7 +6,7 @@
 #include "Light.h"
 
 
-void kll::Lighty::UpdateColor()
+void kll::KllLight::UpdateColor()
 {
     if (!mLight.getIsEnabled()) {
         return;
@@ -16,7 +16,7 @@ void kll::Lighty::UpdateColor()
     mLight.setSpecularColor(mColor * mIntensity);
 }
 
-void kll::Lighty::SetIntensity(float i)
+void kll::KllLight::SetIntensity(float i)
 {
     mIntensity = i;
     UpdateColor();

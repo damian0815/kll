@@ -47,8 +47,9 @@ void kll::Engine::Setup()
     mShaderFolderWatcher.GetChangedEvent().add(this, &Engine::OnShaderFolderChanged, 0);
 
     const bool MAKE_ABSOLUTE = true;
-    mShaderFolderWatcher.Setup(ofToDataPath("shaders", MAKE_ABSOLUTE));
-    mLuaScriptFolderWatcher.Setup(ofToDataPath("lua", MAKE_ABSOLUTE));
+    const bool RECURSIVE = true;
+    mShaderFolderWatcher.Setup(ofToDataPath("shaders", MAKE_ABSOLUTE), RECURSIVE);
+    mLuaScriptFolderWatcher.Setup(ofToDataPath("lua", MAKE_ABSOLUTE), RECURSIVE);
 
     ReloadLuaScript();
     ReloadShaders();
@@ -79,7 +80,19 @@ void kll::Engine::Draw()
     float screenHeight = SCREEN_WIDTH * aspectRatio;
     ofSetupScreenPerspective(SCREEN_WIDTH, screenHeight);
     ofTranslate(SCREEN_WIDTH / 2, screenHeight / 2);
+
+    mEnvironment.GetCamera()->SetPosition(GetCameraPositionFromOfModelViewMatrix());
+
     mEnvironment.Draw();
+}
+
+ofVec3f kll::Engine::GetCameraPositionFromOfModelViewMatrix() const
+{
+    auto m = ofGetCurrentMatrix(OF_MATRIX_MODELVIEW);
+    ofVec3f p, s;
+    ofQuaternion r, so;
+    m.decompose(p, r, s, so);
+    return p;
 }
 
 void kll::Engine::errorReceived(string &msg)
@@ -95,6 +108,8 @@ void kll::Engine::ReloadLuaScript()
 
     mLua.init(true);
     luaopen_kll(mLua);
+    mLua.printTable();
+
     mLua.doScript(SCRIPT_FILE, true);
 	mLua.scriptSetup();
 }

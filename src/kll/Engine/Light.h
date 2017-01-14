@@ -11,7 +11,7 @@
 namespace kll
 {
 
-    class Lighty
+    class KllLight
     {
     public:
         void Enable() { mLight.enable(); UpdateColor(); }

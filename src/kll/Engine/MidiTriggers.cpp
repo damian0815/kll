@@ -45,11 +45,11 @@ namespace kll
                             RaiseTick();
                             ++mTickCount;
                         }
-                    } else {
-                        RaiseNoteOn(message);
                     }
+
+                    RaiseNoteOn(message);
                 } else if (message.status == MIDI_NOTE_OFF) {
-                    // do nothing
+                    RaiseNoteOff(message);
                 } else {
                     fmt::print("Sync: {0}\n", message.toString());
                 }
@@ -64,6 +64,11 @@ namespace kll
     void MidiTriggers::RaiseNoteOn(const ofxMidiMessage &message)
     {
         mNoteOnEvents[message.channel].notify(this, {message.channel, message.pitch, message.velocity});
+    }
+
+    void MidiTriggers::RaiseNoteOff(const ofxMidiMessage &message)
+    {
+        mNoteOffEvents[message.channel].notify(this, {message.channel, message.pitch, message.velocity});
     }
 
 }

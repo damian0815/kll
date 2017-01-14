@@ -30,6 +30,12 @@ void kll::Object::Draw()
     ofLoadMatrix(mModelViewMatrix);
 
     ofSetColor(ofFloatColor(1, 1, 1, mAlpha));
+    if (mAlpha >= 1) {
+        ofEnableDepthTest();
+    } else {
+        ofDisableDepthTest();
+    }
+
     bool shouldUseMaterial = GetLightingEnabled() && GetShouldUseMaterial();
     if (shouldUseMaterial) {
         mMaterial.begin();

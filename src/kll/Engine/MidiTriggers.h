@@ -33,7 +33,8 @@ namespace kll
 
         ofEvent<const NoteData &> &GetNoteOnEvent(int channel)
         { return mNoteOnEvents[channel]; }
-
+        ofEvent<const NoteData &> &GetNoteOffEvent(int channel)
+        { return mNoteOffEvents[channel]; }
     private:
         void newMidiMessage(ofxMidiMessage &message) override;
         void ProcessReceivedMessages();
@@ -45,6 +46,7 @@ namespace kll
         { mTickEvent.notify(this, mTickCount); }
 
         void RaiseNoteOn(const ofxMidiMessage &message);
+        void RaiseNoteOff(const ofxMidiMessage &message);
 
         int mTickCount = 0;
 
@@ -54,6 +56,7 @@ namespace kll
         ofxMidiIn mSyncInput;
 
         ofEvent<const NoteData &> mNoteOnEvents[17];
+        ofEvent<const NoteData &> mNoteOffEvents[17];
 
         ofMutex mReceivedMessagesMutex;
         vector<ofxMidiMessage> mReceivedMessages;

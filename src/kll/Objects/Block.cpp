@@ -15,7 +15,7 @@ namespace kll
     }
 
     Block::Block(vec3 initialPos, vec3 dimensions)
-    : Object(initialPos)
+    : Object(initialPos), mUnscaledDimensions(dimensions)
     {
         auto parMesh = par_shapes_create_cube();
         par_shapes_scale(parMesh, dimensions.x, dimensions.y, dimensions.z);
@@ -25,8 +25,16 @@ namespace kll
         mMesh = Mesh(parMesh);
 
         par_shapes_free_mesh(parMesh);
-
     }
 
+    kll::gvec3 Block::GetScaledDimensions()
+    {
+        return mUnscaledDimensions * GetScale();
+    }
 
+    void Block::SetScaledDimensions(kll::gvec3 d)
+    {
+        vec3 desiredScale(d.x / mUnscaledDimensions.x, d.y / mUnscaledDimensions.y, d.z / mUnscaledDimensions.z);
+        SetScale(desiredScale);
+    }
 }

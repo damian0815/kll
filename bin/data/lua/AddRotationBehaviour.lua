@@ -6,11 +6,6 @@
 -- To change this template use File | Settings | File Templates.
 --
 
-require "Math"
-require "Vector3"
-require "Quaternion"
-require "GLMUtils"
-
 AddRotationBehaviour = {}
 
 function AddRotationBehaviour:new(target, angularVelocity)

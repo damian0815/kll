@@ -20,7 +20,7 @@ end
 function Behaviours:Update(dt)
 
     local environment = kll.Environment.GetInstance()
-    local toDestroy = {}
+    local behavioursToDestroy = {}
     for index, behaviour in ipairs(self.mBehaviours) do
 
         if environment:HasObject(behaviour:GetTarget()) then
@@ -29,11 +29,11 @@ function Behaviours:Update(dt)
                 environment:RemoveObject(behaviour:GetTarget())
             end
         else
-            table.insert(toDestroy, index)
+            table.insert(behavioursToDestroy, 1, index)
         end
     end
 
-    for k, behaviourIndex in ipairs(toDestroy) do
+    for k, behaviourIndex in ipairs(behavioursToDestroy) do
         table.remove(self.mBehaviours, behaviourIndex)
     end
 

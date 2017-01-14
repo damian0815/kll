@@ -17,7 +17,8 @@ namespace kll {
 
     private:
 
-        void OnMidiNote(const void *sender, const MidiTriggers::NoteData &noteData);
+        void OnMidiNoteOn(const void *sender, const MidiTriggers::NoteData &noteData);
+        void OnMidiNoteOff(const void *sender, const MidiTriggers::NoteData &noteData);
 
         ofxLua* mLua;
     };

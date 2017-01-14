@@ -40,6 +40,8 @@ namespace kll
         void OnLuaScriptFolderChanged(const void *sender, string &fullPath);
         void OnShaderFolderChanged(const void *sender, string &fullPath);
 
+        ofVec3f GetCameraPositionFromOfModelViewMatrix() const;
+
         MidiTriggers mTriggers;
         Environment mEnvironment;
         ofxLua mLua;

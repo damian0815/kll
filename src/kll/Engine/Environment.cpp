@@ -40,6 +40,8 @@ namespace kll
 
     void Environment::Draw()
     {
+        ofLoadMatrix(ofGetCurrentMatrix(OF_MATRIX_MODELVIEW) * mCamera.GetTransform());
+
         mLight.Enable();
         for (auto& o: mObjects) {
             o->Draw();
@@ -49,6 +51,7 @@ namespace kll
 
     void Environment::Update(float dt)
     {
+        ofLoadMatrix(mCamera.GetTransform());
         vector<Object*> expiredObjects;
 
         for (auto o: mObjects) {

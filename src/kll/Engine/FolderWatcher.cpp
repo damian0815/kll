@@ -15,11 +15,12 @@ kll::FolderWatcher::~FolderWatcher()
     mFileWatchers.clear();
 }
 
-void kll::FolderWatcher::Setup(string fullPath)
+void kll::FolderWatcher::Setup(string fullPath, bool recursive)
 {
     mFolderPath = fullPath;
+    mRecursive = recursive;
 
-    auto folderContents = GetFolderContents();
+    auto folderContents = GetFolderContents(mFolderPath, mRecursive);
     mFolderContents = folderContents;
     CreateAndDestroyFileWatchersAsNecessary(folderContents);
 }
@@ -31,7 +32,7 @@ void kll::FolderWatcher::Update(float dt)
     if (mUpdateTimer < 0) {
         UpdateFileWatchers();
 
-        auto folderContents = GetFolderContents();
+        auto folderContents = GetFolderContents(mFolderPath, mRecursive);
         CreateAndDestroyFileWatchersAsNecessary(folderContents);
 
         if (folderContents != mFolderContents) {
@@ -77,21 +78,26 @@ void kll::FolderWatcher::CreateFileWatcher(const string &fullPath)
     mFileWatchers.push_back(fw);
 }
 
-vector<string> kll::FolderWatcher::GetFolderContents()
+vector<string> kll::FolderWatcher::GetFolderContents(const string &folderPath, bool recursive)
 {
     DIR* dir;
-    dir = opendir(mFolderPath.c_str());
+    dir = opendir(folderPath.c_str());
     if (dir == nullptr) {
-        fmt::print_colored(fmt::Color::RED, "Unable to open dir {0}: {1}\n", mFolderPath, strerror(errno));
+        fmt::print_colored(fmt::Color::RED, "Unable to open dir {0}: {1}\n", folderPath, strerror(errno));
         return {};
     }
 
     vector<string> result;
     struct dirent* entry;
     while ((entry = readdir(dir)) != nullptr) {
+        auto path = folderPath + "/" + entry->d_name;
         if (entry->d_type == DT_REG) {
-            auto path = mFolderPath + "/" + entry->d_name;
             result.push_back(path);
+        } else if (entry->d_type == DT_DIR && recursive) {
+            if (string(entry->d_name) != "." && string(entry->d_name) != "..") {
+                auto subdir = GetFolderContents(path, recursive);
+                result.insert(result.end(), subdir.begin(), subdir.end());
+            }
         }
     }
     closedir(dir);
@@ -115,5 +121,7 @@ void kll::FolderWatcher::UpdateFileWatchers()
         fw->Update();
     }
 }
+
+
 
 

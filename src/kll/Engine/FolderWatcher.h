@@ -23,14 +23,14 @@ namespace kll
 
         ~FolderWatcher();
 
-        void Setup(string fullPath);
+        void Setup(string fullPath, bool recursive);
         void Update(float dt);
 
         ofEvent<string>& GetChangedEvent() { return mChangedEvent; }
 
     private:
         void CreateAndDestroyFileWatchersAsNecessary(const vector<string> &folderContents);
-        vector<string> GetFolderContents();
+        static vector<string> GetFolderContents(const string &folderPath, bool recursive);
 
         void OnFileChanged(const void *sender, string &fullPath);
         bool HasFileWatcher(const string &path);
@@ -49,6 +49,8 @@ namespace kll
         float mUpdateTimer = 0;
 
         void UpdateFileWatchers();
+
+        bool mRecursive = false;
     };
 
 }
