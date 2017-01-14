@@ -91,6 +91,10 @@ function SectionA:HandleBassNoteOn(pitch, velocity)
     local height = 0.01*(velocity/100)
     local depth = kll.RandomNormal(0.02, 0.05)
     local width = 0.02
+    if gScenes:GetSceneIndex() >= 3 then
+        width = (velocity/100)*0.1
+        height = 0.005
+    end
     local size = kll.gvec3(width, height, depth)
     size = size*4;
 
