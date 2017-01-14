@@ -21,13 +21,8 @@ end
 
 function SectionA:HandleKick()
 
-    if gScenes:GetSceneIndex() == 5 then
-        return
-    end
-
-
-    local block = gEnvironment:AddBlock(kll.gvec3(0,0.1,0),
-        kll.gvec3(0.5,0.05,0.05))
+    local pos = kll.gvec3(0,0.1,0)
+    local block = gEnvironment:AddBlock(pos, kll.gvec3(0.5,0.05,0.05))
     block:SetVelocity(kll.gvec3(0,0,0))
     block:SetShininess(1)
 

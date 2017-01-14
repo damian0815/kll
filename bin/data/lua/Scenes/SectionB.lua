@@ -47,11 +47,21 @@ function SectionB:HandleBassNoteOn(pitch, velocity)
     local height = 0.01
     local depth = 0.03
     local width = kll.RandomNormal(0.3, 0.33);
+    width = width * (1-(pitch-35)/30)
+    if gScenes:GetSceneIndex() == 8 then
+        width = width * 1.3
+    end
     local size = kll.gvec3(height, width, depth)
     size = size*4;
 
+
     local startPitch = 55
     local pitchYScale = -1/70
+
+    if gScenes:GetSceneIndex() == 8 then
+        pitchYScale = -1/40
+    end
+
     local x = ((pitch-startPitch)*pitchYScale)
     local z = 0
 
@@ -59,13 +69,21 @@ function SectionB:HandleBassNoteOn(pitch, velocity)
     local block = gEnvironment:AddBlock(kll.gvec3(x,0,z), size)
     --block:SetVelocity(kll.gvec3(0,0,1))
 
-    local fall = FallBehaviour:new(block, kll.gvec3(0,0,4))
+    local fadeSpeed = 0.02
+    local fallSpeed = 4
+    if gScenes:GetSceneIndex()==7 or gScenes:GetSceneIndex()==8 then
+        fadeSpeed = 0.1
+        fallSpeed = 2
+    end
+
+    local fall = FallBehaviour:new(block, kll.gvec3(0,0,fallSpeed))
     gBehaviours:AddBehaviour(fall)
 
     --local rotate = AddRotationBehaviour:new(block, kll.gvec3(0, 10*kll.RandomNormal(), 0))
     --gBehaviours:AddBehaviour(rotate)
 
-    local fade = FadeBehaviour:new(block, 0.02)
+
+    local fade = FadeBehaviour:new(block, fadeSpeed)
     gBehaviours:AddBehaviour(fade)
 
     self.activeBassBlocks[pitch] = block
@@ -76,8 +94,13 @@ function SectionB:Update(dt)
     for index,block in pairs(self.activeBassBlocks) do
         if gEnvironment:HasObject(block) then
             local d = block:GetScaledDimensions()
-            local GROW_SPEED = 3
-            d.z = d.z + dt * GROW_SPEED
+            local growSpeed = 1
+            if gScenes:GetSceneIndex()==7 or gScenes:GetSceneIndex()==8 then
+                growSpeed = 3
+            else
+                growSpeed = 1 * (1-d.x)
+            end
+            d.z = d.z + dt * growSpeed
             block:SetScaledDimensions(d)
         end
     end
