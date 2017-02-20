@@ -1,6 +1,7 @@
 *~
 *.txt.user
 *.DS_Store
+*.asd
 
 build/*
 debug/*
