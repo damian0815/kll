@@ -25,7 +25,7 @@ namespace kll {
         virtual ~Object() {};
 
         void Draw();
-        void Update(float dt);
+        virtual void Update(float dt);
 
         ofMatrix4x4 GetTransformMatrix() const;
 

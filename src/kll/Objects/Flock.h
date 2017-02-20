@@ -10,46 +10,15 @@
 #include "../Engine/gvec3.h"
 #include "../../3rdparty/nanoflann.hpp"
 #include "Object.h"
+using glm::vec3;
 
 using std::vector;
 
 namespace kll {
 
-    struct Boid
-    {
-        gvec3 position;
-        gvec3 velocity;
-    };
-
-    class Flock : public kll::Object
-    {
-    public:
-
-        Flock(int boidCount);
-
-        ~Flock();
-
-        void Update(float dt);
-
-
-    private:
-
-        vector<Boid> mBoids;
-
-        void UpdateBoid(Boid &boid);
-
-        static const int DIMENSIONS = 3;
-        typedef nanoflann::KDTreeSingleIndexAdaptor<
-                nanoflann::L2_Simple_Adaptor<float, FlockAdapter>,
-                FlockAdapter,
-                DIMENSIONS
-        > KdTreeType;
-        KdTreeType *mKdTree;
-
-    };
-
     struct FlockAdapter {
 
+        FlockAdapter(const vector<Boid>& boids) : mBoids(boids) {}
         const vector<Boid>& mBoids;
 
         inline size_t kdtree_get_point_count() const { return mBoids.size(); }
@@ -89,6 +58,55 @@ namespace kll {
         bool kdtree_get_bbox(BBOX& /* bb */) const { return false; }
 
     };
+
+    struct Boid
+    {
+        vec3 position;
+        vec3 velocity;
+    };
+
+    class Flock : public kll::Object
+    {
+    public:
+
+        Flock(int boidCount);
+
+        ~Flock();
+
+        void Update(float dt) override;
+
+
+    private:
+
+        void UpdateBoid(kll::Boid &boid, const struct Neighbours &neighbours, const float dt);
+
+        struct Neighbours {
+            vector<size_t> indices;
+            vector<float> distances;
+            Neighbours(size_t count) : indices(count), distances(count) {}
+        };
+
+
+        static const int DIMENSIONS = 3;
+        typedef nanoflann::KDTreeSingleIndexAdaptor<
+                nanoflann::L2_Simple_Adaptor<float, FlockAdapter>,
+                FlockAdapter,
+                DIMENSIONS
+        > KdTreeType;
+        KdTreeType *mKdTree;
+
+        FlockAdapter mKdTreeAdapter;
+
+        vector<Boid> mBoids;
+
+        <unknown> Rule1(const Boid &boid, const Neighbours &neighbours);
+
+        <unknown> Rule2(const Boid &boid, const Neighbours &neighbours);
+
+        vec3 Rule3(const Boid &boid, const Neighbours &neighbours);
+    };
+
+
 
 
 }

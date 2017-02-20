@@ -8,9 +8,10 @@ namespace kll
 {
 
     Flock::Flock(int boidCount)
+    : mKdTreeAdapter(mBoids)
     {
         const int MAX_LEAF_SIZE = 10;
-        mKdTree = new KdTreeType(DIMENSIONS, this, nanoflann::KDTreeSingleIndexAdaptorParams(MAX_LEAF_SIZE) );
+        mKdTree = new KdTreeType(DIMENSIONS, mKdTreeAdapter, nanoflann::KDTreeSingleIndexAdaptorParams(MAX_LEAF_SIZE) );
 
     }
 
@@ -19,11 +20,6 @@ namespace kll
         delete mKdTree;
     }
 
-    struct Neighbours {
-        vector<size_t> indices;
-        vector<float> distances;
-        Neighbours(int count) : indices(count), distances(count) {}
-    };
 
     void Flock::Update(float dt)
     {
@@ -34,13 +30,16 @@ namespace kll
 
         mKdTree->buildIndex();
 
+        vector<float> queryPos;
         for (auto &b: mBoids) {
-            UpdateBoid(b);
+            queryPos = { b.position.x, b.position.y, b.position.z };
+            mKdTree->findNeighbors(neighbourResultSet, &queryPos[0], nanoflann::SearchParams(10));
+            UpdateBoid(b, neighbours, 0);
         }
 
     }
 
-    void Flock::UpdateBoid(kll::Boid &boid)
+    void Flock::UpdateBoid(kll::Boid &boid, const struct Neighbours &neighbours, const float dt)
     {
         // http://www.vergenet.net/~conrad/boids/pseudocode.html
 
@@ -48,9 +47,31 @@ namespace kll
         auto v2 = Rule2(boid, neighbours);
         auto v3 = Rule3(boid, neighbours);
 
+        boid.velocity += v1 + v2 + v3;
+        boid.position += boid.velocity * dt;
 
     }
 
+    vec3 Flock::Rule1(const Boid &boid, const Flock::Neighbours &neighbours)
+    {
+        // Rule 1: Boids try to fly towards the centre of mass of neighbouring boids.
+        vec3 c;
+        for (const auto idx: neighbours.indices) {
+            c += mBoids[idx].position;
+        }
+        c /= neighbours.indices.size();
+        return c;
+    }
 
+    vec3 Flock::Rule2(const Boid &boid, const Flock::Neighbours &neighbours)
+    {
+        // Rule 2: Boids try to keep a small distance away from other objects (including other boids).
+
+    }
+
+    vec3 Flock::Rule3(const Boid &boid, const Flock::Neighbours &neighbours)
+    {
+        return glm::vec3();
+    }
 
 }
