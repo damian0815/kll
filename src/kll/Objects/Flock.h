@@ -8,6 +8,8 @@
 
 #include <vector>
 #include "../Engine/gvec3.h"
+#include "../../3rdparty/nanoflann.hpp"
+#include "Object.h"
 
 using std::vector;
 
@@ -19,25 +21,38 @@ namespace kll {
         gvec3 velocity;
     };
 
-    class Flock
+    class Flock : public kll::Object
     {
     public:
 
+        Flock(int boidCount);
+
+        ~Flock();
+
         void Update(float dt);
+
 
     private:
 
         vector<Boid> mBoids;
 
         void UpdateBoid(Boid &boid);
+
+        static const int DIMENSIONS = 3;
+        typedef nanoflann::KDTreeSingleIndexAdaptor<
+                nanoflann::L2_Simple_Adaptor<float, FlockAdapter>,
+                FlockAdapter,
+                DIMENSIONS
+        > KdTreeType;
+        KdTreeType *mKdTree;
+
     };
 
-    struct PointCloud
-    {
-        PointCloud(vector<Boid>* boids) : mBoids(boids) {}
-        vector<Boid>* mBoids;
+    struct FlockAdapter {
 
-        inline size_t kdtree_get_point_count() const { return mBoids->size(); }
+        const vector<Boid>& mBoids;
+
+        inline size_t kdtree_get_point_count() const { return mBoids.size(); }
 
         // Returns the distance between the vector "p1[0:size-1]" and the data point with index "idx_p2" stored in the class:
         inline float kdtree_distance(const float *p1, const size_t idx_p2,size_t /*size*/) const
@@ -52,7 +67,7 @@ namespace kll {
 
         inline const :: ::kll::Boid& GetBoid(const size_t idx_p2) const
         {
-            return mBoids->operator[](idx_p2);
+            return mBoids[idx_p2];
         }
 
         // Returns the dim'th component of the idx'th point in the class:
