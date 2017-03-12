@@ -3,6 +3,7 @@
 %{
     #include "../kll/kll.h"
     #include "../kll/Objects/Block.h"
+    #include "../kll/Objects/Flock.h"
     #include "../kll/Objects/Object.h"
     #include "../kll/Objects/TunnelSection.h"
     #include "../kll/Engine/Light.h"
@@ -22,6 +23,7 @@
 %include "../kll/kll.h"
 %include "../kll/Objects/Object.h"
 %include "../kll/Objects/Block.h"
+%include "../kll/Objects/Flock.h"
 %include "../kll/Objects/TunnelSection.h"
 %include "../kll/Engine/Light.h"
 %include "../kll/Engine/KllCamera.h"

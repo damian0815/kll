@@ -121,7 +121,17 @@ function SectionA:HandleBassNoteOn(pitch, velocity)
 
 end
 
+
+function SectionA:HandleBassNoteOff(pitch, velocity)
+    self.activeBassBlocks[pitch] = nil
+end
+
 function SectionA:Update(dt)
+    self:GrowActiveBassBlocks(dt)
+end
+
+
+function SectionA:GrowActiveBassBlocks(dt)
     for index,block in pairs(self.activeBassBlocks) do
         if gEnvironment:HasObject(block) then
             local d = block:GetScaledDimensions()
@@ -130,9 +140,5 @@ function SectionA:Update(dt)
             block:SetScaledDimensions(d)
         end
     end
-end
-
-function SectionA:HandleBassNoteOff(pitch, velocity)
-    self.activeBassBlocks[pitch] = nil
 end
 

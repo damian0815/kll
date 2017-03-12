@@ -33,10 +33,19 @@ namespace kll
         return section;
     }
 
+    Flock* Environment::AddFlock(int boidCount, const FlockParams &params)
+    {
+        auto flock = new Flock(boidCount, params);
+        AddObject(flock);
+        return flock;
+    }
+
+
     void Environment::AddObject(Object *o)
     {
         mObjects.push_back(o);
     }
+
 
     void Environment::Draw()
     {

@@ -4,6 +4,7 @@ require "Behaviours"
 require "Midi"
 require "Camera"
 require "Scenes"
+require "Boids"
 
 print("hello from inside lua")
 
@@ -16,6 +17,7 @@ gLighting = Lighting:new()
 gMidi = Midi:new()
 gCamera = Camera:new()
 gScenes = Scenes:new()
+gBoids = Boids:new()
 
 gLighting:SetLightPosition(kll.gvec3(1,10,1))
 

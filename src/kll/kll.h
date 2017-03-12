@@ -25,6 +25,10 @@ namespace kll
     float Random(float low=0, float high=1);
     float RandomNormal();
     float RandomNormal(float min, float max);
+
+    vec3 RandomVector3(const vec3& min, const vec3& max);
+
+    static ofVec3f toOfVector(const vec3& v) { return ofVec3f(v.x, v.y, v.z); }
 }
 
 #endif //OFAPP_KLL_H_H

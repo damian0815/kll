@@ -12,6 +12,7 @@
 #include "gvec3.h"
 #include "../Objects/TunnelSection.h"
 #include "../Render/Shader.h"
+#include "../Objects/Flock.h"
 #include "Light.h"
 #include "KllCamera.h"
 
@@ -38,6 +39,7 @@ namespace kll
 
         kll::Block * AddBlock(kll::gvec3 initialPos, kll::gvec3 dimensions);
         kll::TunnelSection *AddTunnelSection(float length, float radius, int segments=8, int slices=2);
+        kll::Flock* AddFlock(int boidCount, const kll::FlockParams &params);
 
         void PrintHello() { fmt::print("hello!\n"); }
 

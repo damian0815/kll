@@ -28,6 +28,7 @@ set(SWIG_DEPENDENCIES ${SWIG_INPUT}
         ${CMAKE_CURRENT_SOURCE_DIR}/src/kll/Engine/Clock.h
         ${CMAKE_CURRENT_SOURCE_DIR}/src/kll/Engine/KllCamera.h
         ${CMAKE_CURRENT_SOURCE_DIR}/src/kll/Objects/Object.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/kll/Objects/Flock.h
         ${CMAKE_CURRENT_SOURCE_DIR}/src/kll/Objects/TunnelSection.h
         ${CMAKE_CURRENT_SOURCE_DIR}/src/kll/kll.h
         )

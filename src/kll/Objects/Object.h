@@ -51,7 +51,7 @@ namespace kll {
         bool GetLightingEnabled() { return mLightingEnabled; }
         void SetLightingEnabled(bool tf) { mLightingEnabled = tf; }
 
-        float GetRemainingLifetime() { return mRemainingLifetime; }
+        virtual float GetRemainingLifetime() { return mRemainingLifetime; }
 
     protected:
 

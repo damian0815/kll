@@ -16,6 +16,13 @@ using std::vector;
 
 namespace kll {
 
+    struct Boid
+    {
+        vec3 position;
+        vec3 velocity;
+    };
+
+
     struct FlockAdapter {
 
         FlockAdapter(const vector<Boid>& boids) : mBoids(boids) {}
@@ -34,7 +41,7 @@ namespace kll {
             return d0*d0+d1*d1+d2*d2;
         }
 
-        inline const :: ::kll::Boid& GetBoid(const size_t idx_p2) const
+        inline const ::kll::Boid& GetBoid(const size_t idx_p2) const
         {
             return mBoids[idx_p2];
         }
@@ -59,32 +66,46 @@ namespace kll {
 
     };
 
-    struct Boid
-    {
-        vec3 position;
-        vec3 velocity;
+    struct FlockParams {
+        int mNeighboursToConsider = 7;
+        float mLocalCohesion = 0.3f;
+        float mGlobalCohesion = 0.3f;
+        float mSeparation = 1.0f;
+        float mSeparationThreshold = 1.0f;
+        float mMatchVelocity = 3.0f;
+        float mStayInOnePlace = 0.2f;
+        float mDampingFactor = 0.0f;
+
+        float mMinSpeed = 0;
+        float mMaxSpeed = 1;
+        kll::gvec3 mFlockCenter;
     };
 
     class Flock : public kll::Object
     {
     public:
 
-        Flock(int boidCount);
+        Flock(int boidCount, const FlockParams& params);
 
         ~Flock();
 
-        void Update(float dt) override;
+    protected:
+        void DrawImpl() override;
+        void UpdateImpl(float dt) override;
 
+        float GetRemainingLifetime() override { return 1; }
 
     private:
 
-        void UpdateBoid(kll::Boid &boid, const struct Neighbours &neighbours, const float dt);
 
         struct Neighbours {
             vector<size_t> indices;
             vector<float> distances;
             Neighbours(size_t count) : indices(count), distances(count) {}
+            int size() const { return indices.size(); }
         };
+
+        void UpdateBoid(int boidIdx, const Neighbours &neighbours, const float dt);
 
 
         static const int DIMENSIONS = 3;
@@ -95,15 +116,24 @@ namespace kll {
         > KdTreeType;
         KdTreeType *mKdTree;
 
+        vector<Boid> mBoids;
         FlockAdapter mKdTreeAdapter;
 
-        vector<Boid> mBoids;
 
-        <unknown> Rule1(const Boid &boid, const Neighbours &neighbours);
+        vec3 GetFlyTowardsCoMOfNeighboursVector(const int boidIdx, const Neighbours &neighbours);
 
-        <unknown> Rule2(const Boid &boid, const Neighbours &neighbours);
+        vec3 GetKeepDistanceFromNeighboursVector(const int boidIdx, const Neighbours &neighbours);
 
-        vec3 Rule3(const Boid &boid, const Neighbours &neighbours);
+        vec3 GetMatchVelocityWithNeighboursVector(const int boidIdx, const Neighbours &neighbours);
+
+        vec3 GetFlyTowardActualFlockCenterVector(Boid &boid);
+        vec3 GetFlyTowardDesiredCenterVector(Boid &boid);
+
+
+        FlockParams mParams;
+
+        vec3 mCurrentFlockCenter;
+
     };
 
 

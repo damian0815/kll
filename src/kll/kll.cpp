@@ -33,3 +33,8 @@ float kll::RandomNormal(float min, float max)
     auto r = RandomNormal();
     return r*range + center;
 }
+
+vec3 kll::RandomVector3(const vec3 &min, const vec3 &max)
+{
+    return glm::vec3(Random(min.x, max.x), Random(min.y, max.y), Random(min.z, max.z));
+}
