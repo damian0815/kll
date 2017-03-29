@@ -127,12 +127,13 @@ function SectionA:HandleBassNoteOff(pitch, velocity)
 end
 
 function SectionA:HandleVocalNoteOn(pitch, velocity)
-    if (gScenes:GetSceneIndex() < 4) then
-        x = -((((pitch - 52)/10) * 5) - 2)
+    local scene = gScenes:GetSceneIndex()
+    if (scene == 2 or scene == 3) then
+        local x = -((((pitch - 52)/10) * 5) - 1)
         gBoids:SetFlockCenter(kll.gvec3(0, 0, x), 3)
         gBoids:SetCohesion(0, 10)
      else
-        x = -(((pitch - 52)/10) * 5) - 2
+        local x = -(((pitch - 52)/10) * 5) - 2
         gBoids:SetFlockCenter(kll.gvec3(0, 0, x), 3)
         gBoids:SetCohesion(0, 10)
     end
