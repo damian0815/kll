@@ -22,7 +22,9 @@ function Midi:OnMidiNoteOn(channel, pitch, velocity)
         self:HandleDrumNote(pitch, velocity)
     elseif channel == 3 then
         self:HandleBassNoteOn(pitch, velocity)
-    else
+    elseif channel == 4 then
+        self:HandleVocalNoteOn(pitch, velocity)
+     else
         print(string.format("lua unhandled midi note on ch %i: pitch %i, velocity %i", channel, pitch, velocity));
     end
 
@@ -31,6 +33,8 @@ end
 function Midi:OnMidiNoteOff(channel, pitch, velocity)
     if channel == 3 then
         self:HandleBassNoteOff(pitch, velocity)
+    elseif channel == 4 then
+        self:HandleVocalNoteOff(pitch, velocity)
     end
 end
 
@@ -69,3 +73,14 @@ function Midi:HandleBassNoteOff(pitch, velocity)
     local scene = gScenes:GetScene()
     scene:HandleBassNoteOff(pitch, velocity)
 end
+
+function Midi:HandleVocalNoteOn(pitch, velocity)
+    local scene = gScenes:GetScene()
+    scene:HandleVocalNoteOn(pitch, velocity)
+end
+
+function Midi:HandleVocalNoteOff(pitch, velocity)
+    local scene = gScenes:GetScene()
+    scene:HandleVocalNoteOff(pitch, velocity)
+end
+

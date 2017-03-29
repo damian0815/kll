@@ -89,6 +89,11 @@ namespace kll {
 
         ~Flock();
 
+        void SetParameters(const FlockParams& params)
+        {
+            mParams = params;
+        }
+
     protected:
         void DrawImpl() override;
         void UpdateImpl(float dt) override;

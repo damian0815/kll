@@ -12,23 +12,34 @@ Boids = {}
 
 function Boids:new()
     local params = kll.FlockParams()
-    params.mNeighboursToConsider = 7
+    params.mNeighboursToConsider = 30
     params.mLocalCohesion = 1
     params.mGlobalCohesion = 0.0
     params.mSeparation = 0.001
     params.mSeparationThreshold = 0.01
-    params.mMatchVelocity = 1
+    params.mMatchVelocity = 0
     params.mStayInOnePlace = 0.2
     params.mDampingFactor = 0.0
-    params.mMinSpeed = 1.6
-    params.mMaxSpeed = 1.8
+    params.mMinSpeed = 0.4
+    params.mMaxSpeed = 4
     params.mFlockCenter = kll.gvec3(0, 0.0, -6)
     local flock = gEnvironment:AddFlock(1000, params)
 
-    o = {flock=flock}
+    local o = {flock=flock, params=params}
     setmetatable(o, self)
     self.__index = self
     return o
 end
 
+function Boids:SetFlockCenter(c, amount)
+    self.params.mFlockCenter = c
+    self.params.mStayInOnePlace = amount
+    self.flock:SetParameters(self.params)
+end
+
+function Boids:SetCohesion(globalCohesion, localCohesion)
+    self.params.mGlobalCohesion = globalCohesion
+    self.params.mLocalCohesion = localCohesion
+    self.flock:SetParameters(self.params)
+end
 

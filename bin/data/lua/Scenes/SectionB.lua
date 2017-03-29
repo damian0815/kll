@@ -109,3 +109,10 @@ end
 function SectionB:HandleBassNoteOff(pitch, velocity)
     self.activeBassBlocks[pitch] = nil
 end
+
+function SectionB:HandleVocalNoteOn(pitch, velocity)
+end
+
+function SectionB:HandleVocalNoteOn(pitch, velocity)
+end
+

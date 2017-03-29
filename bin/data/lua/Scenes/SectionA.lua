@@ -126,6 +126,24 @@ function SectionA:HandleBassNoteOff(pitch, velocity)
     self.activeBassBlocks[pitch] = nil
 end
 
+function SectionA:HandleVocalNoteOn(pitch, velocity)
+    if (gScenes:GetSceneIndex() < 4) then
+        x = -((((pitch - 52)/10) * 5) - 2)
+        gBoids:SetFlockCenter(kll.gvec3(0, 0, x), 3)
+        gBoids:SetCohesion(0, 10)
+     else
+        x = -(((pitch - 52)/10) * 5) - 2
+        gBoids:SetFlockCenter(kll.gvec3(0, 0, x), 3)
+        gBoids:SetCohesion(0, 10)
+    end
+
+end
+
+function SectionA:HandleVocalNoteOff(pitch, velocity)
+    gBoids:SetFlockCenter(kll.gvec3(0, 0, -6), 0.01)
+    gBoids:SetCohesion(0.2, 0)
+end
+
 function SectionA:Update(dt)
     self:GrowActiveBassBlocks(dt)
 end
