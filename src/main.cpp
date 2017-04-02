@@ -1,4 +1,5 @@
 #include "ofApp.h"
+#include "MidiRecordingApp.h"
 
 int main()
 {
@@ -10,6 +11,7 @@ int main()
 
     auto window = ofCreateWindow(settings);
     auto app = make_shared<ofApp>();
+    //auto app = make_shared<MidiRecordingApp>();
     ofRunApp(window, app);
 
     return ofRunMainLoop();

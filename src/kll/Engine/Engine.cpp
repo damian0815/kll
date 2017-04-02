@@ -72,11 +72,11 @@ void kll::Engine::Update(float dt)
 }
 
 
-void kll::Engine::Draw()
+void kll::Engine::Draw(int width, int height)
 {
     float SCREEN_WIDTH = 2;
 
-    float aspectRatio = (float(ofGetHeight())/ofGetWidth());
+    float aspectRatio = (float(height)/width);
     float screenHeight = SCREEN_WIDTH * aspectRatio;
     ofSetupScreenPerspective(SCREEN_WIDTH, screenHeight);
     ofTranslate(SCREEN_WIDTH / 2, screenHeight / 2);

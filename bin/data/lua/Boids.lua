@@ -23,7 +23,7 @@ function Boids:new()
     params.mMinSpeed = 0.4
     params.mMaxSpeed = 4
     params.mFlockCenter = kll.gvec3(0, 0.0, -6)
-    local flock = gEnvironment:AddFlock(1000, params)
+    local flock = gEnvironment:AddFlock(2000, params)
 
     local o = {flock=flock, params=params}
     setmetatable(o, self)

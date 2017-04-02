@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "kll/Engine/Engine.h"
+#include "MidiPlayer.h"
 
 class ofApp : public ofBaseApp
 {
@@ -36,6 +37,9 @@ class ofApp : public ofBaseApp
 
     kll::Engine mKllEngine;
 
+    MidiPlayer mMidiPlayer;
+    ofFbo mFbo;
+    ofPixels mFboPixels;
 
     bool mInitialIsRetina;
     float mInitialWidth, mInitialHeight;

@@ -26,6 +26,7 @@ namespace kll
     {
         mReceivedMessagesMutex.lock();
         mReceivedMessages.push_back(message);
+        RaiseMessageReceived(message);
         mReceivedMessagesMutex.unlock();
     }
 
@@ -71,4 +72,8 @@ namespace kll
         mNoteOffEvents[message.channel].notify(this, {message.channel, message.pitch, message.velocity});
     }
 
+    void MidiTriggers::InjectMidiMessage(ofxMidiMessage message)
+    {
+        newMidiMessage(message);
+    }
 }

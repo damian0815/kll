@@ -24,12 +24,14 @@ namespace kll
 
         void Setup();
         void Update(float dt);
-        void Draw();
+        void Draw(int width, int height);
 
         void RegisterShader(Shader *pShader);
         void UnregisterShader(Shader *pShader);
 
         void SetIsRetina(bool r) { mIsRetina = r; }
+
+        MidiTriggers* GetMidiTriggers() { return &mTriggers; }
 
     private:
         void ReloadLuaScript();

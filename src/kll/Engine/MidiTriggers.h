@@ -35,9 +35,18 @@ namespace kll
         { return mNoteOnEvents[channel]; }
         ofEvent<const NoteData &> &GetNoteOffEvent(int channel)
         { return mNoteOffEvents[channel]; }
+        // may be raised on a background thread
+        ofEvent<const ofxMidiMessage &> &GetRawMessageReceivedEvent()
+        { return mRawMessageReceivedEvent; }
+
+        void InjectMidiMessage(ofxMidiMessage m);
+
     private:
         void newMidiMessage(ofxMidiMessage &message) override;
         void ProcessReceivedMessages();
+
+        void RaiseMessageReceived(const ofxMidiMessage &message)
+        { mRawMessageReceivedEvent.notify(this, message); }
 
         void RaiseTimeReset()
         { mTimeResetEvent.notify(this); }
@@ -55,8 +64,9 @@ namespace kll
 
         ofxMidiIn mSyncInput;
 
-        ofEvent<const NoteData &> mNoteOnEvents[17];
+        ofEvent<const NoteData &> mNoteOnEvents[17]; // 1-16
         ofEvent<const NoteData &> mNoteOffEvents[17];
+        ofEvent<const ofxMidiMessage &> mRawMessageReceivedEvent;
 
         ofMutex mReceivedMessagesMutex;
         vector<ofxMidiMessage> mReceivedMessages;

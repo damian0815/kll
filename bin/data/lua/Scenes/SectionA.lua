@@ -54,7 +54,7 @@ function SectionA:HandleHiHat()
 
     --local screenCenter = kll.gvec3(0,0,0)
     --local towardsCenter = kll.Normalize(screenCenter - center)
-    local flyAway = FallBehaviour:new(block, kll.gvec3(0,0,10))
+    local flyAway = FallBehaviour:new(block, kll.gvec3(0,0,kll.Random(9.9, 10.1)))
     gBehaviours:AddBehaviour(flyAway)
 end
 
@@ -141,7 +141,7 @@ function SectionA:HandleVocalNoteOn(pitch, velocity)
 end
 
 function SectionA:HandleVocalNoteOff(pitch, velocity)
-    gBoids:SetFlockCenter(kll.gvec3(0, 0, -6), 0.01)
+    gBoids:SetFlockCenter(kll.gvec3(0, 0, -5), 0.01)
     gBoids:SetCohesion(0.2, 0)
 end
 
