@@ -1,6 +1,6 @@
 [submodule "ofxMidi"]
 	path = ofxMidi
-	url = git://github.com/danomatika/ofxMidi.git
+	url = git@github.com:damian0815/ofxMidi.git
 [submodule "ofxLua"]
 	path = ofxLua
 	url = https://github.com/danomatika/ofxLua.git
