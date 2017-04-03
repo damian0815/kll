@@ -48,7 +48,7 @@ function SectionB:HandleBassNoteOn(pitch, velocity)
     local depth = 0.03
     local width = kll.RandomNormal(0.3, 0.33);
     width = width * (1-(pitch-35)/30)
-    if gScenes:GetSceneIndex() == 8 then
+    if gScenes:GetSceneIndex() == 9 then
         width = width * 1.3
     end
     local size = kll.gvec3(height, width, depth)
@@ -58,7 +58,7 @@ function SectionB:HandleBassNoteOn(pitch, velocity)
     local startPitch = 55
     local pitchYScale = -1/70
 
-    if gScenes:GetSceneIndex() == 8 then
+    if gScenes:GetSceneIndex() == 9 then
         pitchYScale = -1/40
     end
 
@@ -71,7 +71,7 @@ function SectionB:HandleBassNoteOn(pitch, velocity)
 
     local fadeSpeed = 0.02
     local fallSpeed = 4
-    if gScenes:GetSceneIndex()==7 or gScenes:GetSceneIndex()==8 then
+    if gScenes:GetSceneIndex() == 8 or gScenes:GetSceneIndex() == 9 then
         fadeSpeed = 0.1
         fallSpeed = 2
     end
@@ -90,12 +90,15 @@ function SectionB:HandleBassNoteOn(pitch, velocity)
 
 end
 
+function SectionB:Enter()
+end
+
 function SectionB:Update(dt)
     for index,block in pairs(self.activeBassBlocks) do
         if gEnvironment:HasObject(block) then
             local d = block:GetScaledDimensions()
             local growSpeed = 1
-            if gScenes:GetSceneIndex()==7 or gScenes:GetSceneIndex()==8 then
+            if gScenes:GetSceneIndex() == 8 or gScenes:GetSceneIndex() == 9 then
                 growSpeed = 3
             else
                 growSpeed = 1 * (1-d.x)
@@ -111,8 +114,24 @@ function SectionB:HandleBassNoteOff(pitch, velocity)
 end
 
 function SectionB:HandleVocalNoteOn(pitch, velocity)
+    local scene = gScenes:GetSceneIndex()
+    if scene < 7 then
+        local x = -(((pitch - 52)/10) * 3) + 1
+        gBoids:SetFlockCenter(kll.gvec3(x, 0, -3), 3)
+    elseif scene < 9 then
+        local x = (((pitch - 52)/10) * 3) - 1
+        gBoids:SetFlockCenter(kll.gvec3(x, 0, -3), 3)
+    else
+        local x = -((((pitch - 52)/10) * 5) - 1)
+        gBoids:SetFlockCenter(kll.gvec3(0, x, 0), 3)
+     end
+
+    gBoids:SetCohesion(0, 10)
+
 end
 
-function SectionB:HandleVocalNoteOn(pitch, velocity)
+function SectionB:HandleVocalNoteOff(pitch, velocity)
+    gBoids:SetFlockCenter(kll.gvec3(0, 0, -3), 0.02)
+    gBoids:SetCohesion(0.2, 0)
 end
 

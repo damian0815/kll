@@ -6,20 +6,22 @@
 
 namespace kll
 {
-    static vector<Boid> MakeBoids(int count, float scale)
+    void Flock::Reset()
     {
-        vector<Boid> boids(count);
+        const float scale = 1;
         const vec3 min(-scale, -scale, -scale);
         const vec3 max(scale, scale, scale);
+        const int count = mBoids.size();
         for (int i=0; i<count; i++) {
-            boids[i].position = kll::RandomVector3(min, max);
+            mBoids[i].position = mParams.mFlockCenter + kll::RandomVector3(min, max);
+            mBoids[i].velocity = glm::normalize(kll::RandomVector3(min, max));
         }
-        return boids;
     }
 
     Flock::Flock(int boidCount, const FlockParams &params)
-    : mBoids(MakeBoids(boidCount, 1.0f)), mKdTreeAdapter(mBoids), mParams(params)
+    : mBoids(boidCount), mKdTreeAdapter(mBoids), mParams(params)
     {
+        Reset();
         const int MAX_LEAF_SIZE = 10;
         mKdTree = new KdTreeType(DIMENSIONS, mKdTreeAdapter, nanoflann::KDTreeSingleIndexAdaptorParams(MAX_LEAF_SIZE) );
 
@@ -33,6 +35,7 @@ namespace kll
 
     void Flock::UpdateImpl(float dt)
     {
+        assert(!HasNan());
         mKdTree->buildIndex();
 
         mCurrentFlockCenter = vec3();
@@ -54,6 +57,7 @@ namespace kll
             neighbourResultSet.init(&neighbours.indices[0], &neighbours.distances[0]);
             mKdTree->findNeighbors(neighbourResultSet, &queryPos[0], nanoflann::SearchParams(10));
             UpdateBoid(bIdx, neighbours, dt);
+
         }
 
     }
@@ -68,20 +72,28 @@ namespace kll
         auto v4 = mParams.mStayInOnePlace * GetFlyTowardDesiredCenterVector(boid);
         auto v5 = mParams.mGlobalCohesion * GetFlyTowardActualFlockCenterVector(boid);
 
-        auto acceleration = (v1 + v2 + v3 + v4 + v5);
-        auto damping = -boid.velocity * mParams.mDampingFactor;
-        boid.velocity += dt * (acceleration + damping);
+        auto acceleration = Clamp(v1 + v2 + v3 + v4 + v5, 0, mParams.mMaxAcceleration);
 
-        auto speed = glm::length(boid.velocity);
-        if (speed > mParams.mMaxSpeed) {
-            boid.velocity *= (mParams.mMaxSpeed/speed);
-        }
-        if (speed < mParams.mMinSpeed) {
-            boid.velocity *= (mParams.mMinSpeed/speed);
-        }
+        auto damping = -boid.velocity * mParams.mDampingFactor;
+        auto deltaV = dt * (acceleration + damping);
+        boid.velocity = Clamp(boid.velocity + deltaV, mParams.mMinSpeed, mParams.mMaxSpeed);
 
         boid.position += boid.velocity * dt;
+        assert(!HasNan(boid));
 
+    }
+
+    glm::vec3 Flock::Clamp(const glm::vec3 &v, float minMagnitude, float maxMagnitude)
+    {
+        auto magnitude = glm::length(v);
+        auto result = v;
+        if (magnitude > maxMagnitude) {
+            result *= (maxMagnitude / magnitude);
+        }
+        if (magnitude < minMagnitude) {
+            result *= (minMagnitude / magnitude);
+        }
+        return result;
     }
 
     vec3 Flock::GetFlyTowardsCoMOfNeighboursVector(const int boidIdx, const Flock::Neighbours &neighbours)
@@ -131,9 +143,14 @@ namespace kll
 
     void Flock::DrawImpl()
     {
+        if (mDebugRender) {
+            ofDrawCircle(toOfVector(mParams.mFlockCenter), 0.2f);
+        }
+
         for (const auto& b: mBoids) {
             ofDrawCircle(toOfVector(b.position), 0.01f);
         }
+
 
         /*
         ofMesh mesh;
@@ -154,6 +171,29 @@ namespace kll
     vec3 Flock::GetFlyTowardActualFlockCenterVector(Boid &boid)
     {
         return mCurrentFlockCenter - boid.position;
+    }
+
+    bool Flock::HasNan()
+    {
+        for (const auto &b:mBoids) {
+            if (HasNan(b)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    bool Flock::HasNan(const Boid& b) {
+        if (isnan(b.position.x)) {
+            return true;
+        }
+        if (isnan(b.position.y)) {
+            return true;
+        }
+        if (isnan(b.position.z)) {
+            return true;
+        }
+        return false;
     }
 
 }

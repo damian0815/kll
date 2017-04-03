@@ -59,7 +59,7 @@ ofxMidiMessage MidiPlayer::DecodeJson(picojson::value &value)
     auto o = value.get<picojson::object>();
 
     auto bytes = DecodeMessageBytes(o["message"]);
-    ofxMidiMessage m = ofxBaseMidiIn::buildMidiMessageFromBytes(&bytes);
+    ofxMidiMessage m(&bytes);
 
     m.deltatime = o["deltatime"].get<double>();
     m.portNum = int(o["portNum"].get<double>());

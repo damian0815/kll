@@ -22,13 +22,16 @@ function Boids:new()
     params.mDampingFactor = 0.0
     params.mMinSpeed = 0.4
     params.mMaxSpeed = 4
+    params.mMaxAcceleration = 4
     params.mFlockCenter = kll.gvec3(0, 0.0, -6)
-    local flock = gEnvironment:AddFlock(2000, params)
+    local flock = gEnvironment:AddFlock(1000, params)
+    flock:SetDebugRender(false)
 
     local o = {flock=flock, params=params}
     setmetatable(o, self)
     self.__index = self
     return o
+
 end
 
 function Boids:SetFlockCenter(c, amount)
@@ -43,3 +46,6 @@ function Boids:SetCohesion(globalCohesion, localCohesion)
     self.flock:SetParameters(self.params)
 end
 
+function Boids:Reset()
+    self.flock:Reset()
+end

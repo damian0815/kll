@@ -78,6 +78,7 @@ namespace kll {
 
         float mMinSpeed = 0;
         float mMaxSpeed = 1;
+        float mMaxAcceleration = 1;
         kll::gvec3 mFlockCenter;
     };
 
@@ -93,6 +94,12 @@ namespace kll {
         {
             mParams = params;
         }
+
+        void SetDebugRender(bool tf) {
+            mDebugRender = tf;
+        }
+
+        void Reset();
 
     protected:
         void DrawImpl() override;
@@ -134,11 +141,18 @@ namespace kll {
         vec3 GetFlyTowardActualFlockCenterVector(Boid &boid);
         vec3 GetFlyTowardDesiredCenterVector(Boid &boid);
 
+        bool HasNan();
+
 
         FlockParams mParams;
 
         vec3 mCurrentFlockCenter;
 
+        bool HasNan(const Boid &b);
+
+        static vec3 Clamp(const vec3 &v, float minMagnitude, float maxMagnitude) ;
+
+        bool mDebugRender = false;
     };
 
 

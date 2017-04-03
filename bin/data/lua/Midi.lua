@@ -41,15 +41,8 @@ end
 
 function Midi:HandleSyncNote(pitch, velocity)
     if (pitch < 71) then
-        print("scene " .. pitch)
         gScenes:SetSceneIndex(pitch)
-        if pitch <= 4 then
-            gCamera:SetAngle(0)
-        elseif pitch == 5 then
-            gCamera:StartRotationToAngle(math.pi/2, 16)
-        else
-            gCamera:SetAngle(math.pi/2)
-        end
+
     end
 end
 

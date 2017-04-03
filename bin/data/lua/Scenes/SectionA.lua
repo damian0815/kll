@@ -128,21 +128,31 @@ end
 
 function SectionA:HandleVocalNoteOn(pitch, velocity)
     local scene = gScenes:GetSceneIndex()
-    if (scene == 2 or scene == 3) then
-        local x = -((((pitch - 52)/10) * 5) - 1)
+    if scene == 2 then
+        local x = -(((pitch - 52)/10) * 5)
         gBoids:SetFlockCenter(kll.gvec3(0, 0, x), 3)
-        gBoids:SetCohesion(0, 10)
+    elseif scene == 3 then
+        local x = -(((pitch - 52)/10) * 5) - 1
+        gBoids:SetFlockCenter(kll.gvec3(0, 0, x), 3)
      else
         local x = -(((pitch - 52)/10) * 5) - 2
         gBoids:SetFlockCenter(kll.gvec3(0, 0, x), 3)
-        gBoids:SetCohesion(0, 10)
     end
+
+    gBoids:SetCohesion(0, 10)
 
 end
 
 function SectionA:HandleVocalNoteOff(pitch, velocity)
-    gBoids:SetFlockCenter(kll.gvec3(0, 0, -5), 0.01)
+    gBoids:SetFlockCenter(kll.gvec3(0, 0, -5), 0.05)
     gBoids:SetCohesion(0.2, 0)
+end
+
+
+function SectionA:Enter()
+    gBoids:SetFlockCenter(kll.gvec3(0, 0, -10), 0.05)
+    gBoids:Reset()
+    print("section a enter")
 end
 
 function SectionA:Update(dt)

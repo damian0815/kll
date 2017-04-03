@@ -78,7 +78,10 @@ void kll::Engine::Draw(int width, int height)
 
     float aspectRatio = (float(height)/width);
     float screenHeight = SCREEN_WIDTH * aspectRatio;
-    ofSetupScreenPerspective(SCREEN_WIDTH, screenHeight);
+    const float FOV = 60;
+    const float NEAR_DISTANCE = 0;
+    const float FAR_DISTANCE = 100;
+    ofSetupScreenPerspective(SCREEN_WIDTH, screenHeight, FOV, NEAR_DISTANCE, FAR_DISTANCE);
     ofTranslate(SCREEN_WIDTH / 2, screenHeight / 2);
 
     mEnvironment.GetCamera()->SetPosition(GetCameraPositionFromOfModelViewMatrix());
